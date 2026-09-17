@@ -1,0 +1,37 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:functional": "playwright test",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@solana/web3.js": "^1.98.4",
+    "axios": "^1.7.7",
+    "buffer": "^6.0.3",
+    "highcharts": "^12.6.0",
+    "highcharts-vue": "^2.0.1",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
+    "nuxt": "^3.13.0",
+    "vue": "latest",
+    "vue-jwt-decode": "^0.1.0",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/js-cookie": "^3.0.6",
+    "@vue/test-utils": "^2.4.11",
+    "happy-dom": "^20.11.1",
+    "vitest": "^4.1.10",
+    "vue-tsc": "^3.2.2"
+  }
+}

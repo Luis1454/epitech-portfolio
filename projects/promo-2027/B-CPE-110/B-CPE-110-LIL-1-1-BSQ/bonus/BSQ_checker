@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+# project : BSQ_checker
+# description : auto-test program for the BSQ project
+# author : Luis FERNANDES, 2022
+
+import os
+import sys
+import math
+import time
+
+sum = 0
+total = 0
+red = "\033[1;91m"
+green = "\033[0;92m"
+clear = "\033[0m"
+
+print(clear, end='')
+if (len(sys.argv) == 2 and (sys.argv[1] == "-h" or sys.argv[1] == "--help")):
+    print(f"usage:\n{' ' * 4}\033[1m./BSQ_checker <maps folder> <solver maps folder>{clear}")
+    print(f"{' ' * 4}Make sure you are running this program in your BSQ folder.")
+    print(f"\n{' ' * 4}\033[4;1m/!\{clear} {red}Don't forget to \033[4;91mremove\033[0;91m the \033[1;94mresults{clear} {red}folder !{clear}")
+    exit(0)
+if (len(sys.argv) != 3):
+    print(f"usage:\n{' ' * 4}\033[1m./BSQ_checker <maps folder> <solved maps folder>{clear}\nTry -h or --help to show the usage.")
+    exit(84)
+if (not os.path.exists(sys.argv[1]) or not os.path.exists(sys.argv[2])):
+    print("error : invalid path to either or both folders")
+    exit(84)
+if (os.path.isfile(sys.argv[1]) or os.path.isfile(sys.argv[2])):
+    print("error : either or both arguments is a file but a folder is expected")
+    exit(84)
+if (os.path.samefile(sys.argv[1], sys.argv[2])):
+    print("error : given maps and solved maps are the same folder")
+    exit(84)
+os.system("make fclean --silent && make --silent && mkdir results && rm results/*")
+print(f" exit status |   time   |{' ' * 22}map")
+
+try:
+    for filename in os.listdir(sys.argv[2]):
+        print(f"{'-' * 13}+{'-' * 10}+{'-' * 51}")
+        with open(os.path.join(sys.argv[2], filename), 'r') as fa:
+            start = time.time()
+            state = os.WEXITSTATUS(os.system(f"./bsq {os.path.join(sys.argv[1], filename)} > results/{filename}.log"))
+            end = time.time()
+            fb = open(f"results/{filename}.log", 'r')
+            text = fa.read()
+            result = fb.read()
+            print(f"{' ' * 6}{red if state else green}{state}{clear}{' ' * (6 - len(str(state)) + 1)}| {((end - start)):.3}s\t| {(red if text != result else green)}{filename}{clear}")
+            sum += not not state or text != result
+            total += 1
+            fb.close()
+            fa.close()
+    print(f"{'-' * 13}+{'-' * 10}+{'-' * 51}")
+    os.system("make fclean --silent")
+    print(f"-> {red if sum else green}{sum}{clear} incorrects for \033[1;1m{total}{clear} tested")
+except Exception as e:
+    print(e)
+    exit(84)
+exit(0)

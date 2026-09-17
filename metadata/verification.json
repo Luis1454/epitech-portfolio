@@ -1,0 +1,440 @@
+{
+  "generated_at": "2026-09-17",
+  "scope": "top-level Makefile projects",
+  "summary": {
+    "passed": 34,
+    "blocked": 9
+  },
+  "projects": [
+    {
+      "path": "projects/promo-2026/B-PSU-210/B-PSU-210-LIL-2-1-minishell2",
+      "source_name": "B-PSU-210-LIL-2-1-minishell2-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-CPE-200/B-CPE-200-LIL-2-1-lemin",
+      "source_name": "B-CPE-200-LIL-2-1-lemin-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MAT-200/B-MAT-200-LIL-2-1-109titration",
+      "source_name": "B-MAT-200-LIL-2-1-109titration-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MAT-200/B-MAT-200-LIL-2-1-108trigo",
+      "source_name": "B-MAT-200-LIL-2-1-108trigo-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-PSU-200/B-PSU-200-LIL-2-1-mysokoban",
+      "source_name": "B-PSU-200-LIL-2-1-mysokoban-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../includes/sokoban.h:8:10: fatal error: ncurses.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-PSU-100/B-PSU-100-LIL-1-1-myls",
+      "source_name": "B-PSU-100-LIL-1-1-myls-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-PSU-101/B-PSU-101-LIL-1-1-minishell1",
+      "source_name": "B-PSU-101-LIL-1-1-minishell1-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-CPE-110/B-CPE-110-LIL-1-1-BSQ",
+      "source_name": "B-CPE-110-LIL-1-1-BSQ-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MUL-100/B-MUL-100-LIL-1-1-myradar",
+      "source_name": "B-MUL-100-LIL-1-1-myradar-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../includes/include.h:8:10: fatal error: SFML/Graphics.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MUL-100/B-MUL-100-LIL-1-1-myscreensaver",
+      "source_name": "B-MUL-100-LIL-1-1-myscreensaver-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/include.h:10:10: fatal error: SFML/Graphics.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MAT-100/B-MAT-100-LIL-1-1-105torus",
+      "source_name": "B-MAT-100-LIL-1-1-105torus-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-CPE-210/B-CPE-210-LIL-2-1-solostumper02",
+      "source_name": "B-CPE-210-LIL-2-1-solostumper02-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-CPE-110/B-CPE-110-LIL-1-1-pushswap",
+      "source_name": "B-CPE-110-LIL-1-1-pushswap-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-MAT-100/B-MAT-100-LIL-1-1-102architect",
+      "source_name": "B-MAT-100-LIL-1-1-102architect-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2026/B-CPE-101/B-CPE-101-LIL-1-1-infinadd",
+      "source_name": "B-CPE-101-LIL-1-1-infinadd-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CCP-400/B-CCP-400-LIL-4-1-panoramix",
+      "source_name": "B-CCP-400-LIL-4-1-panoramix-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CNA-410/B-CNA-410-LIL-4-1-groundhog",
+      "source_name": "B-CNA-410-LIL-4-1-groundhog-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-400/B-PSU-400-LIL-4-1-strace",
+      "source_name": "B-PSU-400-LIL-4-1-strace-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-400/B-PSU-400-LIL-4-1-nmobjdump",
+      "source_name": "B-PSU-400-LIL-4-1-nmobjdump-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-OOP-400/B-OOP-400-LIL-4-1-tekspice",
+      "source_name": "B-OOP-400-LIL-4-1-tekspice-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-ASM-400/B-ASM-400-LIL-4-1-asmminilibc",
+      "source_name": "B-ASM-400-LIL-4-1-asmminilibc-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "make: *** [Makefile:38: src/strlen.o] Error 127",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PDG-300/B-PDG-300-LIL-3-1-PDGD05",
+      "source_name": "B-PDG-300-LIL-3-1-PDGD05-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-projtester",
+      "source_name": "B-SYN-200-LIL-2-1-projtester-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-FASTAtools",
+      "source_name": "B-SYN-200-LIL-2-1-FASTAtools-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-palindrome",
+      "source_name": "B-SYN-200-LIL-2-1-palindrome-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-sbmlparser",
+      "source_name": "B-SYN-200-LIL-2-1-sbmlparser-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-200/B-PSU-200-LIL-2-1-minishell2",
+      "source_name": "B-PSU-200-LIL-2-1-minishell2-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-200/B-PSU-200-LIL-2-1-minishell1",
+      "source_name": "B-PSU-200-LIL-2-1-minishell1-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-MUL-200/B-MUL-200-LIL-2-1-mypaint",
+      "source_name": "B-MUL-200-LIL-2-1-mypaint-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/paint.h:9:10: fatal error: SFML/Graphics.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-antman",
+      "source_name": "B-CPE-110-LIL-1-1-antman-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-BSQ",
+      "source_name": "B-CPE-110-LIL-1-1-BSQ-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-navy",
+      "source_name": "B-PSU-100-LIL-1-1-navy-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/navy.h:8:10: fatal error: ncurses.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-210/B-CPE-210-LIL-2-1-solostumper02",
+      "source_name": "B-CPE-210-LIL-2-1-solostumper02-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-210/B-CPE-210-LIL-2-1-solostumper01",
+      "source_name": "B-CPE-210-LIL-2-1-solostumper01-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-MUL-100/B-MUL-100-LIL-1-1-myradar",
+      "source_name": "B-MUL-100-LIL-1-1-myradar-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/radar.h:8:10: fatal error: SFML/Graphics.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-myls",
+      "source_name": "B-PSU-100-LIL-1-1-myls-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-sokoban",
+      "source_name": "B-PSU-100-LIL-1-1-sokoban-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/sokoban.h:8:10: fatal error: ncurses.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-101/B-CPE-101-LIL-1-1-myprintf",
+      "source_name": "B-CPE-101-LIL-1-1-myprintf-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-pushswap",
+      "source_name": "B-CPE-110-LIL-1-1-pushswap-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-MUL-100/B-MUL-100-LIL-1-1-myhunter",
+      "source_name": "B-MUL-100-LIL-1-1-myhunter-luis.fernandes",
+      "command": "make",
+      "status": "blocked",
+      "reason": "dépendance ou outil absent dans l’environnement de validation",
+      "detail": "src/../include/hunter.h:8:10: fatal error: SFML/Graphics.h: No such file or directory",
+      "returncode": 2,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-MAT-100/B-MAT-100-LIL-1-1-101pong",
+      "source_name": "B-MAT-100-LIL-1-1-101pong-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-101/B-CPE-101-LIL-1-1-finalstumper",
+      "source_name": "B-CPE-101-LIL-1-1-finalstumper-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    },
+    {
+      "path": "projects/promo-2027/B-CPE-100/B-CPE-100-LIL-1-1-cpoolday13",
+      "source_name": "B-CPE-100-LIL-1-1-cpoolday13-luis.fernandes",
+      "command": "make",
+      "status": "passed",
+      "reason": "make terminé avec succès",
+      "detail": "",
+      "returncode": 0,
+      "timed_out": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+
+import time
+import os
+import sys
+
+def main():
+    if (len(sys.argv) != 2):
+        exit(84)
+    while True:
+        print("Running tests...")
+        os.system("./bonus/tester " + sys.argv[1])
+        time.sleep(30)
+
+if __name__ == "__main__":
+    main()

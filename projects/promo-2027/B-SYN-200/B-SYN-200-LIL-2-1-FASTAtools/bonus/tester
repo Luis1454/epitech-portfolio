@@ -1,0 +1,96 @@
+#!/usr/bin/python3
+# author: Luis Fernandes
+
+import os
+import subprocess
+import sys
+
+red = "\033[1;31m"
+blue = "\033[1;34m"
+green = "\033[1;32m"
+clear = "\033[0m"
+purple = "\033[1;35m"
+lightblue = "\033[1;36m"
+lightred = "\033[7;91m"
+nb_tests = 0
+success = 0
+
+def get_output(cmd, file=""):
+    if file == "":
+        exit(84)
+    output = os.popen(file + " " + cmd).read()
+    err = subprocess.getoutput(file + " " + cmd + " 2>&1 >/dev/null")
+    status = subprocess.getstatusoutput(file + " " + cmd + " >/dev/null")[0]
+    return output, err, status
+
+def colorize_diff(expected, got):
+    expected = expected.split("\n")
+    got = got.split("\n")
+    diff = ""
+    for i in range(len(expected)):
+        if i >= len(got):
+            diff += red + expected[i] + clear + "\n"
+        elif expected[i] != got[i]:
+            diff += red + expected[i] + clear + "\n"
+        else:
+            diff += expected[i] + "\n" 
+    return diff
+
+def test(name, cmd, expected_std, expected_err, stat):
+    global nb_tests
+    global success
+    nb_tests += 1
+    std, err, status = get_output(cmd, sys.argv[1])
+
+    print(f"{blue}Test #{nb_tests}{clear}: {purple}{name} ({cmd}){clear}", end=" -> ")
+    if status != stat:
+        print(red + "KO\n" + clear + red + "invalid exit status (got " + str(status) + " but expected " + str(stat) + ")" + clear)
+        return
+    if std == expected_std and err == expected_err:
+        print(green + "OK" + "\033[0m ")
+        success += 1
+    else:
+        print(red + "KO" + clear, end="")
+        if err != expected_err:
+            print(f"\n\n{lightblue}Expected error:{clear}\n" + expected_err)
+            print(f"\n{lightblue}Got:\n" + clear + red + err + clear)
+        elif std != expected_std:
+            print(f"\n\n{lightblue}Expected:{clear}\n" + colorize_diff(expected_std, std), end="")
+            print(f"\n{lightblue}Got:\n" + clear + colorize_diff(std, expected_std))
+        else:
+            print(red + " : " + lightred + "Unknown error" + clear)
+
+def run_tests():
+    print("Starting tests...")
+    test("no argument test", "< bonus/test01.tst", "", "", 84)
+    test("type 1 simple", "1 < bonus/test01.tst", """>seq1\nATATGCAGAGTTAGT\n>seq2\nCATCATGCCTAGACGAAGAGATGCTTTGAATGGAATGAA\n""", "", 0)
+    test("type 2 simple", "2 < bonus/test01.tst", """>seq1\nAUAUGCAGAGUUAGU\n>seq2\nCAUCAUGCCUAGACGAAGAGAUGCUUUGAAUGGAAUGAA\n""", "", 0)
+    test("type 2 AGTC in name", "2 < bonus/test02.tst", """>ALL seqs\nAUAUGCAGAGUUAGU\n>cat -e\nCAUCAUGCCUAGACGAAGAGAUGCUUUGAAUGGAAUGAA\n""", "", 0)
+    test("type 3 simple", "3 < bonus/test01.tst", """>seq1\nACTAACTCTGCATAT\n>seq2\nTTCATTCCATTCAAAGCATCTCTTCGTCTAGGCATGATG\n""", "", 0)
+    test("type 4 simple", "4 29 < bonus/test01.tst","""AGACGAAGAGATGCTTTGAATGGAATGAA
+ATCATGCCTAGACGAAGAGATGCTTTGAA
+ATGCCTAGACGAAGAGATGCTTTGAATGG
+CATCATGCCTAGACGAAGAGATGCTTTGA
+CATGCCTAGACGAAGAGATGCTTTGAATG
+CCTAGACGAAGAGATGCTTTGAATGGAAT
+CTAGACGAAGAGATGCTTTGAATGGAATG
+GCCTAGACGAAGAGATGCTTTGAATGGAA
+TAGACGAAGAGATGCTTTGAATGGAATGA
+TCATGCCTAGACGAAGAGATGCTTTGAAT
+TGCCTAGACGAAGAGATGCTTTGAATGGA\n""", "", 0)
+    test("type 4 remove copy", "4 1 < bonus/test01.tst", "A\nC\nG\nT\n", "", 0)
+    test("type 5 simple", "5 < bonus/test01.tst", "ATGCAGAGT\nATGCTT\nATGGAA\n", "", 0)
+
+def main():
+    os.system("make re")
+    run_tests()
+    os.system("make fclean")
+    print("Tests finished")
+    print(str(success) + "/" + str(nb_tests) + " tests passed")
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: ./tests.py <path_to_infin_add>")
+        sys.exit(84)
+    main()

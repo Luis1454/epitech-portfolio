@@ -1,0 +1,97 @@
+#!/usr/bin/python3
+
+import sys
+
+def create_matrix():
+    matrix = []
+    for i in range(3):
+        matrix.append([])
+        for j in range(3):
+            matrix[i].append(0)
+    return matrix
+
+def str_to_matrix(s):
+    a = create_matrix()
+    s = list(s)
+    for i in range(3):
+        for j in range(3):
+            if s:
+                a[i][j] = ord(s.pop(0))
+            else:
+                a[i][j] = 0
+    return a
+
+# compute the reverse of a matrix
+def get_reversed_matrix(a):
+    det = a[0][0] * a[1][1] * a[2][2] + a[0][1] * a[1][2] * a[2][0] + a[0][2] * a[1][0] * a[2][1] - a[0][2] * a[1][1] * a[2][0] - a[0][1] * a[1][0] * a[2][2] - a[0][0] * a[1][2] * a[2][1]
+    b = create_matrix()
+    b[0][0] = (a[1][1] * a[2][2] - a[1][2] * a[2][1]) / det
+    b[0][1] = (a[0][2] * a[2][1] - a[0][1] * a[2][2]) / det
+    b[0][2] = (a[0][1] * a[1][2] - a[0][2] * a[1][1]) / det
+    b[1][0] = (a[1][2] * a[2][0] - a[1][0] * a[2][2]) / det
+    b[1][1] = (a[0][0] * a[2][2] - a[0][2] * a[2][0]) / det
+    b[1][2] = (a[0][2] * a[1][0] - a[0][0] * a[1][2]) / det
+    b[2][0] = (a[1][0] * a[2][1] - a[1][1] * a[2][0]) / det
+    b[2][1] = (a[0][1] * a[2][0] - a[0][0] * a[2][1]) / det
+    b[2][2] = (a[0][0] * a[1][1] - a[0][1] * a[1][0]) / det
+    return b
+
+def multiply(a, b):
+    c = create_matrix()
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                c[i][j] += a[i][k] * b[k][j]
+    return c
+
+def get_matrix_from_list(a):
+    matrix = []
+    for i in range(3):
+        matrix.append([])
+        for j in range(int(len(a) / 3)):
+            matrix[i].append(a[i * 3 + j])
+    return matrix
+
+#print double array
+def print_matrix(arr):
+    for i in arr:
+        for j in i:
+            print(j, end=" " * (8 - len(str(j))))
+        print()
+
+#decryption of the message function
+def decrypt(a, b):
+    c = create_matrix()
+    for i in range(3):
+        for j in range(3):
+            for k in range(3):
+                c[i][j] += a[i][k] * b[k][j]
+    return c
+
+
+def display_code(matrix, msg):
+    for i in range(3):
+        for j in range(3):
+            if i * 3 + j < len(msg):
+                print(" " if i or j else "", end='')
+                print(matrix[i][j], end='')
+    print()
+
+if __name__ == "__main__":
+    if sys.argv[3] == "1":
+        a = get_matrix_from_list(list(map(int, sys.argv[1].split(' '))))
+        print_matrix(a)
+        b = str_to_matrix(sys.argv[2])
+        g = get_reversed_matrix(b)
+        multiply(a, b)
+        print_matrix(b)
+        print("{} {}".format(len(a), len(a[0])))
+    else:
+        print("Key matrix:")
+        print_matrix(str_to_matrix(sys.argv[2]))
+        print("\nEncrypted message:")
+        a = str_to_matrix(sys.argv[2])
+        b = str_to_matrix(sys.argv[1])
+        c = multiply(b, a)
+        display_code(c, sys.argv[1])
+    quit(0)

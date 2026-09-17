@@ -1,0 +1,93 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+
+# Add the ia directory to Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'ia'))
+
+# Import your GomokuAI class
+from ia.model import GomokuAI
+
+class GomokuBot:
+    def __init__(self):
+        self.ai = GomokuAI(size=20)
+
+    def process_command(self, command: str):
+        parts = command.strip().split()
+        if not parts:
+            return None
+
+        cmd = parts[0].upper()
+
+        if cmd == "START":
+            if len(parts) != 2:
+                return "ERROR message - invalid START command"
+            size = int(parts[1])
+            if size != 20:  # We only support 20x20 for the tournament
+                return "ERROR unsupported size"
+            self.ai = GomokuAI(size=size)
+            return "OK"
+
+        elif cmd == "BEGIN":
+            # Make first move (usually center)
+            move = self.ai.get_best_move()
+            x, y = move
+            self.ai.make_move(x, y, 1)
+            return f"{x},{y}"
+
+        elif cmd == "BOARD":
+            self.ai = GomokuAI(size=20)
+            while True:
+                line = sys.stdin.readline().strip()
+                if line == "DONE":
+                    break
+                x, y, player = map(int, line.split(','))
+                self.ai.make_move(x, y, 1 if player == 1 else -1)
+            move = self.ai.get_best_move()
+            self.ai.make_move(move[0], move[1], 1)
+            return f"{move[0]},{move[1]}"
+
+        elif cmd == "TURN":
+            if len(parts) != 2:
+                return "ERROR message - invalid TURN command"
+            x, y = map(int, parts[1].split(','))
+            self.ai.make_move(x, y, -1)
+            move = self.ai.get_best_move()
+            self.ai.make_move(move[0], move[1], 1)
+            return f"{move[0]},{move[1]}"
+
+        elif cmd == "INFO":
+            return None
+
+        elif cmd == "END":
+            sys.exit(0)
+
+        elif cmd == "ABOUT":
+            return 'name="GomokuMaster", version="1.0", author="Claude", country="USA"'
+
+        return "UNKNOWN"
+
+def main():
+    """Main function to run the bot."""
+    bot = GomokuBot()
+
+    while True:
+        try:
+            line = sys.stdin.readline().strip()
+            if not line:
+                continue
+
+            response = bot.process_command(line)
+            if response is not None:
+                print(response)
+                sys.stdout.flush()
+
+        except EOFError:
+            break
+        except Exception as e:
+            print(f"ERROR {str(e)}", file=sys.stderr)
+            sys.stderr.flush()
+
+if __name__ == "__main__":
+    main()

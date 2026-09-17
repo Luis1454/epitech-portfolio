@@ -1,0 +1,129 @@
+#!/usr/bin/python3
+
+import math
+import sys
+import re
+
+regex = r"(((-*[0-9]) (-*[0-9])+ -[zt] (-*[0-9])+ (-*[0-9])+)|((-*[0-9]) (-*[0-9])+ -[rs] (-*[0-9])+)|-h)"
+
+def print_usage():
+    print("USAGE")
+    print("    ./102architect x y transfo1 arg11 [arg12] [transfo2 arg21 [arg22]] ...\n")
+    print("DESCRIPTION")
+    print("    x abscissa of the original point")
+    print("    y ordinate of the original point\n")
+    print("    transfo arg1 [arg2]")
+    print("    -t i j translation along vector (i, j)")
+    print("    -z m n scaling by factors m (x-axis) and n (y-axis)")
+    print("    -r d rotation centered in O by a d degree angle")
+    print("    -s d reflection over the axis passing through O with an inclination")
+    print("    angle of d degrees")
+    quit(0)
+
+def multiply_matrix(matrix_a, matrix_b):
+    out = [[0 for x in range(len(matrix_a))] for y in range(len(matrix_b[0]))]
+
+    for i in range(len(matrix_a[0])):
+        for j in range(len(matrix_b)):
+            for k in range(len(matrix_b[0])):
+                out[i][j] += matrix_a[k][i] * matrix_b[j][k]
+    return out
+
+def compute_t(matrix, x, y):
+    m = [[0 for i in range(3)] for j in range(3)]
+    m[0][2] = x
+    m[1][2] = y
+    m[0][0] = m[1][1] = m[2][2] = 1
+    m = multiply_matrix(matrix, m)
+    print(f"Translation along vector ({x}, {y})")
+
+def compute_z(matrix, x, y):
+    m = [[0 for i in range(3)] for j in range(3)]
+    m[0][0] = x
+    m[1][1] = y
+    m[2][2] = 1
+    m = multiply_matrix(matrix, m)
+    return m
+
+def compute_r(matrix, angle):
+    theta = math.radians(angle)
+    m = [[0 for i in range(3)] for j in range(3)]
+    m[0][0] = math.cos(theta)
+    m[0][1] = -math.sin(theta)
+    m[1][0] = math.sin(theta)
+    m[1][1] = math.cos(theta)
+    m[2][2] = 1
+    m = multiply_matrix(matrix, m)
+    return m
+
+def compute_s(matrix, angle):
+    theta = math.radians(angle)
+    m = [[0 for i in range(3)] for j in range(3)]
+    m[0][0] = math.cos(2 * theta)
+    m[0][1] = math.sin(2 * theta)
+    m[1][0] = math.sin(2 * theta)
+    m[1][1] = -math.cos(2 * theta)
+    m[2][2] = 1
+    m = multiply_matrix(matrix, m)
+    return m
+
+def display_matrix(matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if j:
+                print("   ", end='')
+            print(f"{matrix[i][j]:.2f}", end=' ')
+        print("")
+
+def check_transform(i):
+    if sys.argv[i][1] == 't' or sys.argv[i][1] == 'z':
+        return len(sys.argv) >= i + 4 and is_float(sys.argv[i + 1]) and is_float(sys.argv[i + 2]) and is_float(sys.argv[i + 3])
+    elif sys.argv[i][1] == 'r' or sys.argv[i][1] == 's':
+        return len(sys.argv) >= i + 3 and is_float(sys.argv[i + 1]) and is_float(sys.argv[i + 2])
+
+def call_transform(matrix, i):
+    if (sys.argv[i][0] == '-'):
+        match sys.argv[i][1]:
+            case 't':
+                compute_t(matrix, float(sys.argv[i + 1]), float(sys.argv[i + 2]))
+            case 'z':
+                compute_z(matrix, float(sys.argv[i + 1]), float(sys.argv[i + 2]))
+            case 'r':
+                compute_r(matrix, float(sys.argv[i + 1]))
+            case 's':
+                compute_s(matrix, float(sys.argv[i + 1]))
+    else:
+        return 0
+    return 2 + (sys.argv[i] == "-z" or sys.argv[i] == "-t")
+
+def is_float(str):
+    try:
+        float(str)
+    except:
+        return False
+    return True
+
+def error_handling():
+    str = ' '.join(sys.argv)
+    if re.search(regex, str) == None:
+        quit(84)
+
+def main():
+    if (len(sys.argv) == 2 and (sys.argv[1] == "-h" or sys.argv[1] == "--help")):
+        print_usage()
+    error_handling()
+    matrix = [[0 for i in range(3)] for j in range(3)]
+    matrix[0][0] = matrix[1][1] = matrix[2][2] = 1
+    vector = [[0] for i in range(3)]
+    copy = vector
+    vector[0][0] = float(sys.argv[1])
+    vector[1][0] = float(sys.argv[2])
+    for i in range(1, len(sys.argv)):
+        i += call_transform(vector, i)
+    vector[2][0] = 1
+    display_matrix(matrix)
+    print(f"({copy[0]}, {copy[1]}) => ({vector[0]}, {vector[1]})")
+    quit(0)
+
+if __name__ == "__main__":
+    main()

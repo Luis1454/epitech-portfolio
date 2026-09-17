@@ -1,0 +1,43 @@
+#!/bin/python3
+
+import sys
+
+def print_usage():
+    print("USAGE")
+    print("    ./107transfer [num den]")
+    print("DESCRIPTION")
+    print("    num         polynomial numerator defined by its coefficients")
+    print("    den         polynomial denominator defined by its coefficients")
+    sys.exit(0)
+
+def get_result(tab, x):
+    result = 0
+    for i in range(len(tab) - 1, -1, -1):
+        result = (result * x) + float(tab[i])
+    return result
+
+def main():
+    if len(sys.argv) == 2 and sys.argv[1] == "-h" or len(sys.argv) == 2 and sys.argv[1] == "--help":
+        print_usage()
+    if len(sys.argv) == 1 or len(sys.argv) % 2 != 1:
+        sys.exit(84)
+    result = 1.0
+    x = 0.0
+    while x <= 1.001:
+        for i in range(1, len(sys.argv), 2):
+            num_tab = sys.argv[i].split("*")
+            den_tab = sys.argv[i + 1].split("*")
+            num = get_result(num_tab, x)
+            den = get_result(den_tab, x)
+            if num == den:
+                result *= 1
+            else:
+                if den == 0:
+                    sys.exit(84)
+                result *= num / den
+        print(f"{x:.3f} -> {result:.5f}")
+        x += 0.001
+        result = 1.0
+
+if __name__ == "__main__":
+    main()

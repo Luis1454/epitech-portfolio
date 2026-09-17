@@ -1,0 +1,106 @@
+#!/usr/bin/python3
+
+import sys
+import math
+
+def print_usage():
+    print("USAGE")
+    print("    ./104intersection opt xp yp zp xv yv zv p\n")
+    print("DESCRIPTION")
+    print("    opt             surface option: 1 for a sphere, 2 for a cylinder, 3 for a cone")
+    print("    (xp, yp, zp)    coordinates of a point by which the light ray passes through")
+    print("    (xv, yv, zv)    coordinates of a vector parallel to the light ray")
+    print("    p               parameter: radius of the sphere, radius of the cylinder, or")
+    print("                    angle formed by the cone and the Z-axis")
+
+
+def main():
+    if len(sys.argv) == 2 and sys.argv[1] == "-h":
+        print_usage()
+        return 0
+    if len(sys.argv) != 9:
+        print("Usage: ./104intersection opt xp yp zp xv yv zv p")
+        return 84
+    opt = int(sys.argv[1])
+    xp = float(sys.argv[2])
+    yp = float(sys.argv[3])
+    zp = float(sys.argv[4])
+    xv = float(sys.argv[5])
+    yv = float(sys.argv[6])
+    zv = float(sys.argv[7])
+    p = float(sys.argv[8])
+    if opt == 1:
+        sphere(xp, yp, zp, xv, yv, zv, p)
+    elif opt == 2:
+        cylinder(xp, yp, zp, xv, yv, zv, p)
+    elif opt == 3:
+        cone(xp, yp, zp, xv, yv, zv, p)
+    else:
+        print("Usage: ./104intersection opt xp yp zp xv yv zv p")
+        return 84
+    return 0
+
+def sphere(xp, yp, zp, xv, yv, zv, p):
+    print("Sphere of radius {:d}".format(int(p)))
+    print("Line passing through the point ({:d}, {:d}, {:d}) and parallel to the vector ({:d}, {:d}, {:d})".format(int(xp), int(yp), int(zp), int(xv), int(yv), int(zv)))
+    a = xv ** 2 + yv ** 2 + zv ** 2
+    b = 2 * (xv * xp + yv * yp + zv * zp)
+    c = xp ** 2 + yp ** 2 + zp ** 2 - p ** 2
+    delta = b ** 2 - 4 * a * c
+    if delta < 0:
+        print("No intersection point.")
+    elif delta == 0:
+        print("1 intersection point:")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + (-b / (2 * a)) * xv, yp + (-b / (2 * a)) * yv, zp + (-b / (2 * a)) * zv))
+    else:
+        print("2 intersection points:")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b - math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b - math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b - math.sqrt(delta)) / (2 * a)) * zv))
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b + math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b + math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b + math.sqrt(delta)) / (2 * a)) * zv))
+
+def cylinder(xp, yp, zp, xv, yv, zv, p):
+    print("Cylinder of radius {:d}".format(int(p)))
+    print("Line passing through the point ({:d}, {:d}, {:d}) and parallel to the vector ({:d}, {:d}, {:d})".format(int(xp), int(yp), int(zp), int(xv), int(yv), int(zv)))
+    a = xv ** 2 + yv ** 2
+    b = 2 * (xv * xp + yv * yp)
+    c = xp ** 2 + yp ** 2 - p ** 2
+    delta = b ** 2 - 4 * a * c
+    if delta < 0:
+        print("No intersection point.")
+    elif delta == 0:
+        try:
+            xp + (-b / (2 * a)) * xv, yp + (-b / (2 * a)) * yv, zp + (-b / (2 * a)) * zv
+        except:
+            print("There is an infinite number of intersection points.")
+        else :
+            print("1 intersection point:")
+            print("({:.3f}, {:.3f}, {:.3f})".format(xp + (-b / (2 * a)) * xv, yp + (-b / (2 * a)) * yv, zp + (-b / (2 * a)) * zv))
+    else:
+        print("2 intersection points:")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b - math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b - math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b - math.sqrt(delta)) / (2 * a)) * zv))
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b + math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b + math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b + math.sqrt(delta)) / (2 * a)) * zv))
+
+def cone(xp, yp, zp, xv, yv, zv, p):
+    print("Cone with a {:d} degree angle".format(int(p)))
+    print("Line passing through the point ({:d}, {:d}, {:d}) and parallel to the vector ({:d}, {:d}, {:d})".format(int(xp), int(yp), int(zp), int(xv), int(yv), int(zv)))
+    x = math.tan(math.radians(p))
+    a = xv ** 2 + yv ** 2 - x ** 2 * zv ** 2
+    b = 2 * (xv * xp + yv * yp - x ** 2 * zv * zp)
+    c = xp ** 2 + yp ** 2 - x ** 2 * zp ** 2
+    delta = b ** 2 - 4 * a * c
+    if delta < 0:
+        print("No intersection point.")
+    elif delta == 0:
+        try:
+            xp + (-b / (2 * a)) * xv, yp + (-b / (2 * a)) * yv, zp + (-b / (2 * a)) * zv
+        except:
+            print("There is an infinite number of intersection points.")
+        else :
+            print("1 intersection point:")
+            print("({:.3f}, {:.3f}, {:.3f})".format(xp + (-b / (2 * a)) * xv, yp + (-b / (2 * a)) * yv, zp + (-b / (2 * a)) * zv))
+    else:
+        print("2 intersection points:")
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b + math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b + math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b + math.sqrt(delta)) / (2 * a)) * zv))
+        print("({:.3f}, {:.3f}, {:.3f})".format(xp + ((-b - math.sqrt(delta)) / (2 * a)) * xv, yp + ((-b - math.sqrt(delta)) / (2 * a)) * yv, zp + ((-b - math.sqrt(delta)) / (2 * a)) * zv))
+
+if __name__ == "__main__":
+    exit(main())

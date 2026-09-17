@@ -1,0 +1,133 @@
+#!/usr/bin/python3
+
+from math import *
+import sys
+import os
+
+def to_int(arg):
+    try:
+        return int(arg)
+    except ValueError:
+        exit(84)
+
+def to_float(arg):
+    try:
+        return float(arg)
+    except ValueError:
+        exit(84)
+
+def error_managing():
+    if (len(sys.argv) == 2 and sys.argv[1] == "-h" or sys.argv[1] == "--help"):
+        print("USAGE\n")
+        print("    ./109titration file\n")
+        print("DESCRIPTION\n")
+        print("    file    a csv file containing 2 columns: \"vol;ph\"\n")
+        exit(0)
+    if len(sys.argv) == 1:
+        exit(84)
+    if len(sys.argv) > 2:
+        exit(84)
+    exist = os.path.isfile(sys.argv[1])
+    if not exist:
+        exit(84)
+
+def create_tab_value(values):
+    lines = 0
+    for i in values:
+        lines += 1
+    if lines == 0:
+        exit(84)
+    tab = [[0 for i in range(2)] for i in range(lines)]
+    tab_values = [[0 for i in range(2)] for i in range(lines)]
+    values.close()
+    values = open(sys.argv[1], "r")
+    i = 0
+    for line in values:
+        tab[i] = line.split(";")
+        tab_values[i][0] = tab[i][0]
+        tab_values[i][1] = tab[i][1].rstrip("\n")
+        i += 1
+    for i in range(len(tab_values)):
+        tab_values[i][0] = to_float(tab_values[i][0])
+        tab_values[i][1] = to_float(tab_values[i][1])
+    tab_values.sort()
+    return (tab_values)
+
+def derivative_calcul(tab):
+    print("Derivative:")
+    vol = 0
+    tab_derivative = [[0] for i in range(len(tab))]
+    new_derivative = 0
+    for i in range(1, len(tab) - 1):
+        derivative = (tab[i + 1][1] - tab[i - 1][1]) / (tab[i + 1][0] - tab[i - 1][0])
+        tab_derivative[i] = derivative
+        if derivative > new_derivative:
+            new_derivative = derivative
+            vol = tab[i][0]
+        print("%.1f ml -> %.2f" %(tab[i][0], derivative))
+    print("\nEquivalence point at %.1f ml" %(vol))
+
+    return (tab_derivative)
+
+def second_derivative_calcul(tab_derivative, tab):
+    print("Second derivative:")
+    vol_min_max = [[0] for i in range(3)]
+    value_min_max = [[0] for i in range(3)]
+    tab_second_derivative = [[0] for i in range(len(tab_derivative) - 2)]
+    for i in range(2, len(tab_derivative) - 2):
+        tab_second_derivative[i - 2] = (tab_derivative[i + 1] - tab_derivative[i - 1]) / (tab[i + 1][0] - tab[i - 1][0])
+        print("%.1f ml -> %.2f" %(tab[i][0], tab_second_derivative[i - 2]))
+    for i in range(0, len(tab_second_derivative) - 3):
+        if (tab_second_derivative[i] > 0.00 and tab_second_derivative[i + 1] < 0.00):
+            vol_min_max[0] = tab[i - 1 + 3][0]
+            vol_min_max[1] = tab[i + 3][0]
+            vol_min_max[2] = tab[i + 1 + 3][0]
+            value_min_max[0] = tab_second_derivative[i]
+            value_min_max[1] = tab_second_derivative[i + 1]
+            value_min_max[2] = tab_second_derivative[i + 2]
+    return (vol_min_max, value_min_max)
+def second_derivative_estimated(vol_min_max, value_min_max):
+    print("\nSecond derivative estimated:")
+    i = vol_min_max[0]
+    vol = 0
+    new_derivative = 0
+    count = 0
+    while i < vol_min_max[2]:
+        count += 1
+        i += 0.1
+    new_vol = [[0] for _ in range(0, count, 1)]
+    i = vol_min_max[0]
+    for _ in range(0, count, 1):
+        new_vol[_] = i
+        i += 0.1
+    for i in range(0, count, 1):
+        if new_vol[i] <= vol_min_max[1]:
+            coef1 = (new_vol[i] - vol_min_max[0]) / (vol_min_max[1] - vol_min_max[0])
+            coef2 = (vol_min_max[1] - new_vol[i]) / (vol_min_max[1] - vol_min_max[0])
+            derivative = coef1 * value_min_max[1] + coef2 * value_min_max[0]
+            if derivative < new_derivative and new_derivative >= 0:
+                new_derivative = derivative
+                vol = new_vol[i - 1]
+            print("%.1f ml -> %.2f" %(new_vol[i], derivative))
+        if new_vol[i] > vol_min_max[1]:
+            coef1 = (new_vol[i] - vol_min_max[1]) / (vol_min_max[2] - vol_min_max[1])
+            coef2 = (vol_min_max[2] - new_vol[i]) / (vol_min_max[2] - vol_min_max[1])
+            derivative = coef1 * value_min_max[2] + coef2 * value_min_max[1]
+            if derivative < new_derivative and new_derivative >= 0:
+                new_derivative = derivative
+                vol = new_vol[i - 1]
+            print("%.1f ml -> %.2f" %(new_vol[i], derivative))
+    print("\nEquivalence point at %.1f ml" %(vol))
+
+def main():
+    if len(sys.argv) != 2:
+        exit(84)
+    error_managing()
+    values = open(sys.argv[1], "r")
+    tab = create_tab_value(values)
+    tab_derivative = derivative_calcul(tab)
+    vol_min_max, value_min_max = second_derivative_calcul(tab_derivative, tab)
+    second_derivative_estimated(vol_min_max, value_min_max)
+
+if __name__ == "__main__":
+    main()

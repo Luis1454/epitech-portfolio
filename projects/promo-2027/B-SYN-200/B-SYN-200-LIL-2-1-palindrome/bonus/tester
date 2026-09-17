@@ -1,0 +1,144 @@
+#!/usr/bin/python3
+# author: Luis Fernandes
+
+import os
+import subprocess
+
+red = "\033[1;31m"
+green = "\033[1;32m"
+nb_tests = 0
+success = 0
+
+def get_output(cmd):
+    output = os.popen("../palindrome " + cmd).read()
+    err = subprocess.getoutput("../palindrome " + cmd + " 2>&1 >/dev/null")
+    status = subprocess.getstatusoutput("../palindrome " + cmd + " >/dev/null")[0]
+    return output, err, status
+
+def test(cmd, expected_std, expected_err, stat):
+    global nb_tests
+    global success
+    nb_tests += 1
+    std, err, status = get_output(cmd)
+
+    if status != stat:
+        print("[" + red + "KO" + "\033[0m] " + cmd + " : invalid exit status (got " + str(status) + " but expected " + str(stat) + ")")
+        return
+    if std == expected_std and err == expected_err:
+        print("[" + green + "OK" + "\033[0m] " + cmd)
+        success += 1
+    else:
+        print("[" + red + "KO" + "\033[0m] " + cmd)
+        if err != expected_err:
+            print("Expected error:\n" + expected_err)
+            print("Got error:\n" + err)
+        if std != expected_std:
+            print("Expected:\n" + expected_std, end="")
+            print("Got:\n" + std)
+
+def run_tests():
+    print("Starting tests...")
+    test("-n 12321 -b 10", "12321 leads to 12321 in 0 iteration(s) in base 10\n", "", 0)
+    test("-n 64 -b 2", "64 leads to 65 in 1 iteration(s) in base 2\n", "", 0)
+    test("-n 12321", "12321 leads to 12321 in 0 iteration(s) in base 10\n", "", 0)
+    test("-p 363 -b 10", """3 leads to 363 in 6 iteration(s) in base 10
+6 leads to 363 in 5 iteration(s) in base 10
+12 leads to 363 in 4 iteration(s) in base 10
+15 leads to 363 in 3 iteration(s) in base 10
+21 leads to 363 in 4 iteration(s) in base 10
+24 leads to 363 in 3 iteration(s) in base 10
+30 leads to 363 in 4 iteration(s) in base 10
+33 leads to 363 in 3 iteration(s) in base 10
+39 leads to 363 in 2 iteration(s) in base 10
+42 leads to 363 in 3 iteration(s) in base 10
+48 leads to 363 in 2 iteration(s) in base 10
+51 leads to 363 in 3 iteration(s) in base 10
+57 leads to 363 in 2 iteration(s) in base 10
+60 leads to 363 in 3 iteration(s) in base 10
+66 leads to 363 in 2 iteration(s) in base 10
+75 leads to 363 in 2 iteration(s) in base 10
+84 leads to 363 in 2 iteration(s) in base 10
+93 leads to 363 in 2 iteration(s) in base 10
+132 leads to 363 in 1 iteration(s) in base 10
+231 leads to 363 in 1 iteration(s) in base 10
+330 leads to 363 in 1 iteration(s) in base 10
+363 leads to 363 in 0 iteration(s) in base 10\n""", "", 0)
+    test("-n 64 -b 2", "64 leads to 65 in 1 iteration(s) in base 2\n", "", 0)
+    test("-p 363 -b 10 -imin 7", "no solution\n", "", 0)
+    test("ushiupzdpcuijsdpcu", "", "invalid argument", 84)
+    test("-n 12321 -b 1", "", "invalid argument", 84)
+    test("-n 12321 -b 37", "", "invalid argument", 84)
+    test("-n 12321 -b 0", "", "invalid argument", 84)
+    test("-n 12321 -b -1", "", "invalid argument", 84)
+    test("-n 121 -b 10 -imin -1", "", "invalid argument", 84)
+    test("-n 121 -b 10 -imin 0 -imax 20", "121 leads to 121 in 0 iteration(s) in base 10\n", "", 0)
+    test("-n 12321 -b 10 -imin 0", "12321 leads to 12321 in 0 iteration(s) in base 10\n", "", 0)
+    test("-n -12321 -b 10", "", "invalid argument", 84)
+    test("-p 363 -b 10 -imax 2", """39 leads to 363 in 2 iteration(s) in base 10
+48 leads to 363 in 2 iteration(s) in base 10
+57 leads to 363 in 2 iteration(s) in base 10
+66 leads to 363 in 2 iteration(s) in base 10
+75 leads to 363 in 2 iteration(s) in base 10
+84 leads to 363 in 2 iteration(s) in base 10
+93 leads to 363 in 2 iteration(s) in base 10
+132 leads to 363 in 1 iteration(s) in base 10
+231 leads to 363 in 1 iteration(s) in base 10
+330 leads to 363 in 1 iteration(s) in base 10
+363 leads to 363 in 0 iteration(s) in base 10\n""", "", 0)
+    test("-p 33 -b 10 -imin 1 -imax 3", """3 leads to 33 in 3 iteration(s) in base 10
+6 leads to 33 in 2 iteration(s) in base 10
+12 leads to 33 in 1 iteration(s) in base 10
+21 leads to 33 in 1 iteration(s) in base 10
+30 leads to 33 in 1 iteration(s) in base 10\n""", "", 0)
+    test("-p 3 -b 10 -imin 2 -imax 3", """no solution\n""", "", 0)
+    test("-p 363 -imin 2 -imax 3 -b 10", """15 leads to 363 in 3 iteration(s) in base 10
+24 leads to 363 in 3 iteration(s) in base 10
+33 leads to 363 in 3 iteration(s) in base 10
+39 leads to 363 in 2 iteration(s) in base 10
+42 leads to 363 in 3 iteration(s) in base 10
+48 leads to 363 in 2 iteration(s) in base 10
+51 leads to 363 in 3 iteration(s) in base 10
+57 leads to 363 in 2 iteration(s) in base 10
+60 leads to 363 in 3 iteration(s) in base 10
+66 leads to 363 in 2 iteration(s) in base 10
+75 leads to 363 in 2 iteration(s) in base 10
+84 leads to 363 in 2 iteration(s) in base 10
+93 leads to 363 in 2 iteration(s) in base 10\n""", "", 0)
+    test("-p 123", "", "invalid argument", 84)
+    test("-p 65 -b 8", """64 leads to 65 in 1 iteration(s) in base 8
+65 leads to 65 in 0 iteration(s) in base 8\n""", "", 0)
+    test("-p 10 -b 3", """9 leads to 10 in 1 iteration(s) in base 3
+10 leads to 10 in 0 iteration(s) in base 3\n""", "", 0)
+    test("-p 10 -b 4", """1 leads to 10 in 4 iteration(s) in base 4
+2 leads to 10 in 3 iteration(s) in base 4
+4 leads to 10 in 2 iteration(s) in base 4
+5 leads to 10 in 1 iteration(s) in base 4
+8 leads to 10 in 1 iteration(s) in base 4
+10 leads to 10 in 0 iteration(s) in base 4\n""", "", 0)
+    test("-n 10 -p 20", "", "invalid argument", 84)
+    test("-np 20", "", "invalid argument", 84)
+    test("", "", "invalid argument", 84)
+    test("  ", "", "invalid argument", 84)
+    test("-p 22", """5 leads to 22 in 3 iteration(s) in base 10
+10 leads to 22 in 2 iteration(s) in base 10
+11 leads to 22 in 1 iteration(s) in base 10
+20 leads to 22 in 1 iteration(s) in base 10
+22 leads to 22 in 0 iteration(s) in base 10\n""", "", 0)
+    test("-p 22 -imin 0 -imax 1", """11 leads to 22 in 1 iteration(s) in base 10
+20 leads to 22 in 1 iteration(s) in base 10
+22 leads to 22 in 0 iteration(s) in base 10\n""", "", 0)
+    test("-p 22 -imin 0 -imax 0", "22 leads to 22 in 0 iteration(s) in base 10\n", "", 0)
+    test("-p 22 -imin 2 -imax 2", "10 leads to 22 in 2 iteration(s) in base 10\n", "", 0)
+    test("-p 22 -max -1 -imin 2", "", "invalid argument", 84)
+    test("-p 57 -b 7", "57 leads to 57 in 0 iteration(s) in base 7\n", "", 0)
+    test("-p 57 -b 7 -imin 1 -imax 1", "no solution\n", "", 0)
+    test("-p 58 -b 7", "", "invalid argument", 84)
+    test("-p 58 -b 7 -imin 1 -imax 1", "", "invalid argument", 84)
+
+
+if __name__ == "__main__":
+    os.system("make -C .. re")
+    run_tests()
+    os.system("make -C .. fclean")
+    print("Tests finished")
+    print(str(success) + "/" + str(nb_tests) + " tests passed")

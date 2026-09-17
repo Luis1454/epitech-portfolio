@@ -1,0 +1,208 @@
+
+        ███╗   ███╗██╗   ██╗     ██████╗  █████╗ ██████╗  █████╗ ██████╗ 
+        ████╗ ████║╚██╗ ██╔╝     ██╔══██╗██╔══██╗██╔══██╗██╔══██╗██╔══██╗
+        ██╔████╔██║ ╚████╔╝      ██████╔╝███████║██║  ██║███████║██████╔╝
+        ██║╚██╔╝██║  ╚██╔╝       ██╔══██╗██╔══██║██║  ██║██╔══██║██╔══██╗
+        ██║ ╚═╝ ██║   ██║███████╗██║  ██║██║  ██║██████╔╝██║  ██║██║  ██║
+        ╚═╝     ╚═╝   ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+
+/----------------------------------------------------------------------------------\
+| The my_radar project is a simple radar simulator.                                |
+| It's goal is to show how to learn how to use the CSFML library.                  |
+|                                                                                  |
+| This project is composed of 3 main parts:                                        |
+|   - the simulation engine                                                        |
+|   - the graphical interface                                                      |
+|   - the data parser                                                              |
+|                                                                                  |
+| Each part has an objective in the learning on new competences in the CSFML.      |
+|                                                                                  |
+| The first is processing oriented, with a lot of calculations to do.              |
+| The second is graphic oriented and has a part of synchronization with clocks.    |
+| The third is system oriented handle open, read and close files.                  |
+|                                                                                  |
+\----------------------------------------------------------------------------------/
+
+/----------------------------------------------------------------------------------\
+|                                      WARNING                                     |
+|                                                                                  |
+|          please note that the simulation handle a 3D coordinate system           |
+|                                                                                  |
+|    if an aircraft is not crashed after flying over another aircraft, it means    |
+|       that the aircraft don't have the same altitude as the other aircraft       |
+|      in the same logic if an aircraft is not in a tower area, it means that      |
+|        the aircraft use a 3D coordinates system you can resolve this issue       |
+|           by changing the [RANGE_METRIC] and [AIRCRAFT_METRIC] keywords          |
+|                                                                                  |
+|               check the corresponding section for more information               |
+|                                                                                  |
+\----------------------------------------------------------------------------------/
+
+/----------------------------------- INSTALLATION --------------------------------------------------------------------\
+|                                                                                                                     |
+|   The project is compiled using the CSFML library.                                                                  |
+|                                                                                                                     |
+|   Make sure you have the CSFML library installed before compiling the project.                                      |
+|                                                                                                                     |
+|   You can find the CSFML library here : https://www.sfml-dev.org/download/csfml/                                    |
+|                                                                                                                     |
+|------------------------------------ COMPILATION --------------------------------------------------------------------|
+|                                                                                                                     |
+|   The compilation is done using a "Makefile" as it follows:                                                         |
+|       make                                                                                                          |
+|   You can also use the "fclean" target to clean the project:                                                        |
+|       make fclean                                                                                                   |
+|                                                                                                                     |
+|   After compilation, you will have a "my_radar" executable file.                                                    |
+|   You can run it with the following command:                                                                        |
+|       ./my_radar <.rdr file>                                                                                        |
+|                                                                                                                     |
+|   The program take exactly one argument, which is the ".rdr" file.                                                  |
+|                                                                                                                     |
+|   The ".rdr" file is a file containing all the information for the simulation.                                      |
+|   It's a text file that you can edit as you want (see below for more information).                                  |
+|                                                                                                                     |
+|-------------------------------------- KEYWORDS ---------------------------------------------------------------------|
+|                                                                                                                     |
+|   Each .rdr files can handle a range of keywords:                                                                   |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [A] : aircraft description as follows:                                                                          |
+|   |---- [model]               : only letters and dashes, no tabs or spaces (recommended : <manufacturer>-<model>)   |
+|   |---- [callsign]            : unique identifier for the aircraft (format : [A-Z]-[A-Z]{4})                        |
+|   |---- [departure_icao]      : ICAO code of the departure tower (format : [A-Z]{4})                                |
+|   |---- [arrival_icao]        : ICAO code of the arrival tower (format : [A-Z]{4})                                  |
+|   |---- [departure_timestamp] : hour of the departure (format : integer)                                            |
+|   |---- [climb_rate]          : climb rate at the departure in ft/mins (format : positive float)                    |
+|   |---- [climb_speed]         : climb speed at the departure in nm/h (format : positive float)                      |
+|   |---- [cruise_speed]        : cruise speed in nm/h (format : positive float)                                      |
+|   |---- [cruise_alt]          : cruise altitude simple in feets (format : positive float)                           |
+|   |---- [descent_rate]        : descent rate at the arrival in ft/mins (format : positive float)                    |
+|   |---- [descent_speed]       : descent speed at the arrival in nm/h (format : positive float)                      |
+|   |---- [fuel_capacity]       : fuel capacity in L (format : positive float)                                        |
+|   |---- [fuel_consumption]    : fuel consumption in L/h (format : positive float)                                   |
+|   |---- [stall_speed]         : stall speed in nm/h (format : positive float)                                       |
+|   |                                                                                                                 |
+|   | example : P Cessna-172 G-ABCD LFPG LFBO 0 300 100 120 15000 300 80 202 36 60                                    |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [T] : tower description as follows:                                                                             |
+|   |                                                                                                                 |
+|   |---- [name]                : name of the tower (format : [A-Z\-]+)                                               |
+|   |---- [icao]                : unique ICAO code of the tower (format : [A-Z]{4})                                   |
+|   |---- [latitude]            : latitude of the tower in nm (format : positive float)                               |
+|   |---- [longitude]           : longitude of the tower in nm (format : positive float)                              |
+|   |---- [altitude]            : altitude of the tower in feets (format : positive float)                            |
+|   |---- [range]               : range of the tower in nm (format : positive float)                                  |
+|   |---- [capacity]            : capacity of the tower (format : positive float)                                     |
+|   |---- [taxiing_time]        : time to taxiing along the runway in seconds (format : positive float)               |
+|   |                                                                                                                 |
+|   | example : T Charles-de-Gaulle LFPG 49.009 2.547 392 200 100 60                                                  |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [#] : comment symbol (all the line after this symbol will be ignored)                                           |
+|   |                                                                                                                 |
+|   | example : # this is a comment ("example : " is not commented)                                                   |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [TIME] : time of the simulation, formatting as follows:                                                         |
+|   |                                                                                                                 |
+|   |---- [start_timestamp]     : starting stimestamp of the simulation (format : integer)                            |
+|   |---- [timewarp factor]     : speed factor of the simulation (format : positive float)                            |
+|   |                                                                                                                 |
+|   | example : TIME 0 1.0                                                                                            |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [RANGE_METRIC] : metric to calculate the distance between a aircraft and a tower:                               |
+|   |                                                                                                                 |
+|   |---- [x axis]              : factor for x axis of the simulation (format : float)                                |
+|   |---- [y axis]              : factor for y axis of the simulation (format : float)                                |
+|   |---- [z axis]              : factor for z axis of the simulation (format : float)                                |
+|   |                                                                                                                 |
+|   | (use 1 1 0 to ignore the altitude axis)                                                                         |
+|   | (use 1 1 1 to use the altitude axis)                                                                            |
+|   | (use 1 1 21.42 to use the altitude axis with a 21.42 times higher weight)                                       |
+|   |                                                                                                                 |
+|   | example : RANGE_METRIC X Y Z                                                                                    |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|                                                                                                                     |
+|   /-----------------------------------------------------------------------------------------------------------------|
+|   | [AIRCRAFT_METRIC] : metric to calculate the distance between two aircrafts:                                     |
+|   |                                                                                                                 |
+|   |---- [x axis]              : factor for x axis of the simulation (format : float)                                |
+|   |---- [y axis]              : factor for y axis of the simulation (format : float)                                |
+|   |---- [z axis]              : factor for z axis of the simulation (format : float)                                |
+|   |                                                                                                                 |
+|   | (use 1 1 0 to ignore the altitude axis)                                                                         |
+|   | (use 1 1 1 to use the altitude axis)                                                                            |
+|   | (use 1 1 21.42 to use the altitude axis with a 21.42 times higher weight)                                       |
+|   |                                                                                                                 |
+|   | example : AIRCRAFT_METRIC X Y Z                                                                                 |
+|   |                                                                                                                 |
+|   | Note :                                                                                                          |
+|   |   - a metric formatted like this N N N is completely equivalent to a rescale of the simulation                  |
+|   |     in a N times bigger space (N > 0) and in particular, because the travelled distance is                      |
+|   |     constant, each aircraft will be virtually N times faster than 1 1 1 metric.                                 |
+|   |                                                                                                                 |
+|   | If you want learn more about metrics, you can check the following links:                                        |
+|   |   - https://en.wikipedia.org/wiki/Euclidean_distance                                                            |
+|   |   - https://en.wikipedia.org/wiki/Metric_space                                                                  |
+|   |                                                                                                                 |
+|   | The order of the keywords is not important, assuming that the keywords are well formatted                       |
+|   | and that the keyword is the first word of the line and that there is only one keyword per line.                 |
+|   \-----------------------------------------------------------------------------------------------------------------|
+|                                                                                                                     |
+|------------------------------------ SIMULATION ---------------------------------------------------------------------|
+|                                                                                                                     |
+|   The simulation will stop when all the aircrafts have landed or crashed.                                           |
+|   If a aircraft is in a tower area, the tower will prevent every collision between aircrafts inside its area.       |
+|                                                                                                                     |
+|   aircrafts boxes are colored as follows:                                                                           |
+|     - green                 : aircraft is in the air                                                                |
+|     - highlight blue        : aircraft is in a tower area                                                           |
+|     - red gradient          : aircraft is close to another aircraft                                                 |
+|     - yellow                : aircraft is extremely close to another aircraft                                       |
+|                                                                                                                     |
+|   If a risk of collision is detected, the two aircrafts boxes will be highlighted                                   |
+|                                                                                                                     |
+|   aircrafts traces are colored according to their altitude from blue (low) to red (high)                            |
+|                                                                                                                     |
+|   highest altitude is fixed to 50000 ft (15 240 m)                                                                  |
+|                                                                                                                     |
+|------------------------------------ FLIGHT PLAN --------------------------------------------------------------------|
+|                                                                                                                     |
+|   Each aircraft is drived by a flight plan, which is start at the departure tower and end at the arrival tower.     |
+|   The flight plan is a list of waypoints, which are the following:                                                  |
+|     - departure tower       : take off from this tower at the departure timestamp                                   |
+|     - climb waypoint        : climb to the cruise altitude at the climb speed and climb rate                        |
+|     - cruise waypoint       : cruise at the cruise altitude and cruise speed                                        |
+|     - descent waypoint      : descent to the arrival tower altitude at the descent speed and descent rate           |
+|     - arrival tower         : land at this tower at the tower altitude                                              |
+|                                                                                                                     |
+|   If the aircraft is not able to land at the arrival tower, it will wait 1000 feet above the tower altitude         |
+|   by turning around and descending at the descent speed and descent rate until the tower can accept it.             |
+|                                                                                                                     |
+|   It's status will be "CYCLING" until it can land.                                                                  |
+|                                                                                                                     |
+|   If the aircraft has burned all its fuel, it will turn around and descend at the descent speed and descent rate    |
+|   until it reaches the ground.                                                                                      |
+|                                                                                                                     |
+|   If the aircraft is not able to reach the ground, it will crash.                                                   |
+|                                                                                                                     |
+|------------------------------------- RESOURCES ---------------------------------------------------------------------|
+|                                                                                                                     |
+|   If you still have questions, you can contact me on github or at the following address:                            |
+|      - email : <contact@example.invalid>                                                                          |
+|                                                                                                                     |
+\---------------------------------------------------------------------------------------------------------------------/
+
+                                                  Enjoy the simulation!

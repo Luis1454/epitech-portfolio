@@ -1,0 +1,28 @@
+/-- My Paint
+| 
+| The my_paint project is a simple paint program written in C using CSFML that allows you to draw on a window.
+|
+| The project contains many features such as:
+| - Brushs and erasers
+| - Color picker
+| - Color palette
+| - Save and load
+| - File explorer
+|
+| A file explorer is also available to open and save files, so you can load any image and draw on it.
+|
+| If you want to save this loaded image, it will be saved on the same file, by overwriting it.
+| 
+| The brush configuration allow you to change the size of the brush, the hardness and the opacity.
+| 
+| In the case of the eraser, the hardness and the opacity are not used, but the size is.
+| 
+| the eraser is also a brush, but with a transparent color and infinite hardness.
+|
+| the color palette is coded using vectors, so all the 256bits colors is available.
+|
+| if you still have any questions, feel free to contact me.
+|
+| my email is written in the about section of the program.
+|
+\-- Have fun!

@@ -1,0 +1,32 @@
+# Portfolio build metadata
+.portfolio-removed.txt
+.env
+!.env.example
+!.env.*.example
+
+# Python tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Native and project build outputs
+build/
+cmake-build-*/
+coverage/
+mouli_maps/
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+
+# JavaScript dependencies
+node_modules/
+
+# IDE and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

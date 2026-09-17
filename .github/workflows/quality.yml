@@ -1,0 +1,26 @@
+name: Portfolio quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate portfolio tooling
+        run: python -m py_compile tools/portfolio.py
+
+      - name: Regenerate documentation
+        run: python tools/portfolio.py docs
+
+      - name: Ensure generated files are committed
+        run: git diff --exit-code

@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+
+# Add the ia directory to Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'ia'))
+
+from ia.models.modelNICO import GomokuAI
+
+class GomokuBot:
+    def __init__(self):
+        self.ai = GomokuAI(board_size=20)
+        self.board = [[0 for _ in range(20)] for _ in range(20)]
+
+    def _update_board(self, x: int, y: int, player: int):
+        """Update both AI and local board state."""
+        self.board[x][y] = player
+
+    def process_command(self, command: str):
+        parts = command.strip().split()
+        if not parts:
+            return None
+
+        cmd = parts[0].upper()
+
+        if cmd == "START":
+            if len(parts) != 2:
+                return "ERROR message - invalid START command"
+            size = int(parts[1])
+            if size != 20:  # We only support 20x20 for the tournament
+                return "ERROR unsupported size"
+            self.ai = GomokuAI(board_size=size)
+            self.board = [[0 for _ in range(size)] for _ in range(size)]
+            return "OK"
+
+        elif cmd == "BEGIN":
+            # Make first move using AI
+            move = self.ai.find_best_move(self.board, 1)
+            if move:
+                x, y = move
+                self._update_board(x, y, 1)
+                return f"{x},{y}"
+            return "ERROR no valid move"
+
+        elif cmd == "BOARD":
+            print("DEBUG Receiving board state", file=sys.stderr)
+            # Reset board state
+            self.board = [[0 for _ in range(20)] for _ in range(20)]
+            self.ai = GomokuAI(board_size=20)
+
+            while True:
+                line = sys.stdin.readline().strip()
+                print(f"DEBUG Read line: {line}", file=sys.stderr)
+                if line == "DONE":
+                    break
+                try:
+                    x, y, player = map(int, line.split(','))
+                    print(f"DEBUG Processing move: x={x}, y={y}, player={player}", file=sys.stderr)
+                    # player 1 is our stone, player 2 is opponent's stone
+                    board_player = 1 if player == 1 else 2
+                    self._update_board(x, y, board_player)
+                except ValueError as e:
+                    print(f"DEBUG Error processing line: {e}", file=sys.stderr)
+                    continue
+
+            print("DEBUG Board received, calculating move", file=sys.stderr)
+            move = self.ai.find_best_move(self.board, 1)
+            if move:
+                x, y = move
+                self._update_board(x, y, 1)
+                print(f"DEBUG Selected move: {x},{y}", file=sys.stderr)
+                return f"{x},{y}"
+            return "ERROR no valid move"
+
+        elif cmd == "TURN":
+            if len(parts) != 2:
+                return "ERROR message - invalid TURN command"
+            try:
+                x, y = map(int, parts[1].split(','))
+                # Process opponent's move
+                self._update_board(x, y, 2)  # Opponent is player 2
+
+                # Calculate our move
+                move = self.ai.find_best_move(self.board, 1)  # We are player 1
+                if move:
+                    move_x, move_y = move
+                    self._update_board(move_x, move_y, 1)
+                    return f"{move_x},{move_y}"
+                return "ERROR no valid move"
+            except Exception as e:
+                print(f"DEBUG Turn error: {e}", file=sys.stderr)
+                return "ERROR invalid move format"
+
+        elif cmd == "INFO":
+            # Process game information if needed
+            return None
+
+        elif cmd == "END":
+            sys.exit(0)
+
+        elif cmd == "ABOUT":
+            return 'name="GomokuMaster", version="2.0", author="Claude", country="USA"'
+
+        return "UNKNOWN"
+
+def main():
+    """Main function to run the bot."""
+    bot = GomokuBot()
+
+    while True:
+        try:
+            line = sys.stdin.readline().strip()
+            if not line:
+                continue
+
+            response = bot.process_command(line)
+            if response is not None:
+                print(response)
+                sys.stdout.flush()
+
+        except EOFError:
+            break
+        except Exception as e:
+            print(f"ERROR {str(e)}", file=sys.stderr)
+            sys.stderr.flush()
+
+if __name__ == "__main__":
+    main()

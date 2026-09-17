@@ -1,0 +1,17 @@
+Air traffic simulation panel
+
+USAGE
+    ./my_radar [.rdr file]
+    this program take exactly one argument,
+    witch is the .rdr file to read or an option
+
+OPTIONS
+    -h, --help
+        Display this help
+
+    -l, --legend
+        Display more information about the .rdr file
+
+ADDITIONAL CONTENT
+    The project contains a .rdr file that can be used to test the program.
+    the format of the file is quite complex, refer to README.legend for more information.

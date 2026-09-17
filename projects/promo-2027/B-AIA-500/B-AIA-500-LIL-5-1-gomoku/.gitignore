@@ -1,0 +1,14 @@
+.vscode
+*.o
+*.out
+*.a
+*.sh
+*.log
+vgcore.*
+*.exe
+*.ini
+liskvork-*
+/build
+communication.txt
+*.toml
+__pycache__
