@@ -1,0 +1,351 @@
+#!/usr/bin/env python3
+
+##
+## EPITECH PROJECT, 2024
+## B-CNA-410-LIL-4-1-trade-nicolas1.nguyen
+## File description:
+## trade
+##
+
+import numpy as np
+import os
+
+class Bot:
+    def __init__(self):
+        self.botState = BotState()
+        self.pwd = os.path.dirname(os.path.realpath(__file__))
+        self.parameters = self.load_parameters('model')
+        self.scaler = self.load_scaler()
+        self.transaction_fee = 0.002
+
+    def load_scaler(self):
+        scale = np.load(f'{self.pwd}/parameters/scaler_scale.npy', allow_pickle=True)
+        mean = np.load(f'{self.pwd}/parameters/scaler_mean.npy', allow_pickle=True)
+        return {'scale': scale, 'mean': mean}
+
+    def load_parameters(self, prefix):
+        parameters = {}
+        keys = ['Wf', 'Wi', 'Wo', 'Wc', 'Wy', 'bf', 'bi', 'bo', 'bc', 'by', 'dropout_rate']
+        for key in keys:
+            parameters[key] = np.load(f'{self.pwd}/parameters/{prefix}_{key}.npy')
+        return parameters
+
+    def run(self):
+        while True:
+            reading = input()
+            if len(reading) == 0:
+                continue
+            self.parse(reading)
+
+    def parse(self, info: str):
+        tmp = info.split(" ")
+        if tmp[0] == "settings":
+            self.botState.update_settings(tmp[1], tmp[2])
+        elif tmp[0] == "update":
+            if tmp[1] == "game":
+                self.botState.update_game(tmp[2], tmp[3])
+        elif tmp[0] == "action":
+            self.take_action()
+
+    def normalize_data(self, X, scaler):
+        X_scaled = (X - scaler['mean']) / scaler['scale']
+        return X_scaled
+
+    def lstm_forward(self, x, h_prev, c_prev, parameters):
+        Wf, Wi, Wo, Wc, Wy = parameters['Wf'], parameters['Wi'], parameters['Wo'], parameters['Wc'], parameters['Wy']
+        bf, bi, bo, bc, by = parameters['bf'], parameters['bi'], parameters['bo'], parameters['bc'], parameters['by']
+        dropout_rate = parameters['dropout_rate']
+
+        concat = np.concatenate((h_prev, x), axis=0)
+
+        ft = self.sigmoid(np.dot(Wf, concat) + bf)
+        it = self.sigmoid(np.dot(Wi, concat) + bi)
+        ot = self.sigmoid(np.dot(Wo, concat) + bo)
+        cct = np.tanh(np.dot(Wc, concat) + bc)
+
+        c_next = ft * c_prev + it * cct
+        h_next = ot * np.tanh(c_next)
+
+        mask = np.random.rand(*h_next.shape) > dropout_rate
+        h_next *= mask
+        h_next /= (1 - dropout_rate)
+
+        y = np.dot(Wy, h_next) + by
+        y = self.softmax(y)
+
+        cache = (h_next, c_next, h_prev, c_prev, ft, it, ot, cct, x, mask)
+        return y, h_next, c_next, cache
+
+    def sigmoid(self, x):
+        x = np.clip(x, -500, 500)
+        return 1 / (1 + np.exp(-x))
+
+    def softmax(self, x):
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum(axis=0)
+
+    def moving_average(self, data, window_size):
+        weights = np.ones(window_size) / window_size
+        return np.convolve(data, weights, mode='valid')
+
+    def rsi(self, data, window_size=14):
+        deltas = np.diff(data)
+        seed = deltas[:window_size + 1]
+        up = seed[seed >= 0].sum() / window_size
+        down = -seed[seed < 0].sum() / window_size
+        rs = up / down
+        rsi = np.zeros_like(data)
+        rsi[:window_size] = 100. - 100. / (1. + rs)
+
+        for i in range(window_size, len(data)):
+            delta = deltas[i - 1]
+
+            if delta > 0:
+                upval = delta
+                downval = 0.
+            else:
+                upval = 0.
+                downval = -delta
+
+            up = (up * (window_size - 1) + upval) / window_size
+            down = (down * (window_size - 1) + downval) / window_size
+
+            rs = up / down
+            rsi[i] = 100. - 100. / (1. + rs)
+
+        return rsi
+
+    def ema(self, data, span):
+        alpha = 2 / (span + 1)
+        ema = np.zeros_like(data)
+        ema[0] = data[0]
+        for i in range(1, len(data)):
+            ema[i] = alpha * data[i] + (1 - alpha) * ema[i - 1]
+        return ema
+
+    def macd(self, data, fast_span=12, slow_span=26, signal_span=9):
+        ema_fast = self.ema(data, fast_span)
+        ema_slow = self.ema(data, slow_span)
+        macd_line = ema_fast - ema_slow
+        signal_line = self.ema(macd_line, signal_span)
+        macd_histogram = macd_line - signal_line
+        return macd_line, signal_line, macd_histogram
+
+    def add_technical_indicators(self, data):
+        closes = data['close']
+
+        if len(closes) < 26:
+            raise ValueError("Not enough data to compute technical indicators")
+
+
+        data['MA_5'] = self.moving_average(closes, 5)
+        data['MA_10'] = self.moving_average(closes, 10)
+
+
+        data['RSI'] = self.rsi(closes, 14)
+
+
+        macd_line, macd_signal, macd_hist = self.macd(closes, fast_span=12, slow_span=26, signal_span=9)
+        data['MACD'] = macd_line
+        data['MACD_signal'] = macd_signal
+        data['MACD_hist'] = macd_hist
+
+
+        numeric_cols = ['MA_5', 'MA_10', 'RSI', 'MACD', 'MACD_signal', 'MACD_hist']
+        for col in numeric_cols:
+            data[col] = np.nan_to_num(data[col])
+
+        return data
+
+    def get_latest_candle_data(self):
+        chart = self.botState.charts["USDT_BTC"]
+        if len(chart.closes) < 26:
+            raise ValueError("Not enough data to compute technical indicators")
+
+        data = {
+            'close': np.array(chart.closes[-26:]),
+            'high': np.array(chart.highs[-26:]),
+            'low': np.array(chart.lows[-26:]),
+            'open': np.array(chart.opens[-26:]),
+            'volume': np.array(chart.volumes[-26:])
+        }
+        df = self.add_technical_indicators(data)
+        latest_candle = {key: val[-1] for key, val in df.items()}
+        return np.array([latest_candle['high'], latest_candle['low'], latest_candle['open'], latest_candle['close'],
+                        latest_candle['volume'], latest_candle['MA_5'], latest_candle['MA_10'], latest_candle['RSI'],
+                        latest_candle['MACD'], latest_candle['MACD_signal'], latest_candle['MACD_hist']])
+
+    def take_action(self):
+        dollars = self.botState.stacks["USDT"]
+        btc = self.botState.stacks["BTC"]
+        closing_prices = self.botState.charts["USDT_BTC"].closes
+
+        if len(closing_prices) < 26:
+            print("no_moves", flush=True)
+            return
+
+        try:
+            current_data = self.get_latest_candle_data()
+        except ValueError as e:
+            print(f"Error: {e}", flush=True)
+            print("no_moves", flush=True)
+            return
+
+        X_real_time = np.array([current_data])
+        X_real_time_normalized = self.normalize_data(X_real_time, self.scaler)
+
+        input_dim = X_real_time_normalized.shape[1]
+        hidden_dim = self.parameters['Wf'].shape[0]
+        output_dim = self.parameters['Wy'].shape[0]
+
+        h_prev = np.zeros((hidden_dim, 1))
+        c_prev = np.zeros((hidden_dim, 1))
+
+        x = X_real_time_normalized.T
+        y_hat, h_next, c_next, cache = self.lstm_forward(x, h_prev, c_prev, self.parameters)
+
+        prediction = np.argmax(y_hat)
+
+        position_fraction = 0.1
+        stop_loss = 0.05
+        take_profit = 0.1
+        trailing_stop_loss = 0.02
+
+        current_price = closing_prices[-1]
+
+        if prediction == 1:
+            amount_to_buy = dollars / current_price * position_fraction
+            if dollars > 0 and position_fraction * dollars > 1:
+                self.execute_buy_order(amount_to_buy)
+                self.botState.purchase_price = current_price
+                self.botState.highest_price = current_price
+            else:
+                print("no_moves", flush=True)
+        elif prediction == 0:
+            if btc > 0 and position_fraction * btc * current_price > 1:
+                if self.botState.purchase_price:
+                    if (current_price >= self.botState.purchase_price * (1 + take_profit)) or \
+                    (current_price <= self.botState.purchase_price * (1 - stop_loss)):
+                        self.execute_sell_order(btc)
+                        self.botState.purchase_price = None
+                        self.botState.highest_price = None
+                    elif current_price <= self.botState.highest_price * (1 - trailing_stop_loss):
+                        self.execute_sell_order(btc)
+                        self.botState.purchase_price = None
+                        self.botState.highest_price = None
+                    else:
+                        self.botState.highest_price = max(self.botState.highest_price, current_price)
+                        print("no_moves", flush=True)
+            else:
+                print("no_moves", flush=True)
+        else:
+            print("no_moves", flush=True)
+
+    def execute_buy_order(self, amount):
+        print(f'buy USDT_BTC {amount}', flush=True)
+
+    def execute_sell_order(self, amount):
+        print(f'sell USDT_BTC {amount}', flush=True)
+
+class Candle:
+    def __init__(self, format, intel):
+        tmp = intel.split(",")
+        for (i, key) in enumerate(format):
+            value = tmp[i]
+            if key == "pair":
+                self.pair = value
+            if key == "date":
+                self.date = int(value)
+            if key == "high":
+                self.high = float(value)
+            if key == "low":
+                self.low = float(value)
+            if key == "open":
+                self.open = float(value)
+            if key == "close":
+                self.close = float(value)
+            if key == "volume":
+                self.volume = float(value)
+
+    def __repr__(self):
+        return str(self.pair) + str(self.date) + str(self.close) + str(self.volume)
+
+class Chart:
+    def __init__(self):
+        self.dates = []
+        self.opens = []
+        self.highs = []
+        self.lows = []
+        self.closes = []
+        self.volumes = []
+        self.indicators = {}
+
+    def add_candle(self, candle: Candle):
+        self.dates.append(candle.date)
+        self.opens.append(candle.open)
+        self.highs.append(candle.high)
+        self.lows.append(candle.low)
+        self.closes.append(candle.close)
+        self.volumes.append(candle.volume)
+
+class BotState:
+    def __init__(self):
+        self.timeBank = 0
+        self.maxTimeBank = 0
+        self.timePerMove = 1
+        self.candleInterval = 1
+        self.candleFormat = []
+        self.candlesTotal = 0
+        self.candlesGiven = 0
+        self.initialStack = 0
+        self.transactionFee = 0.1
+        self.date = 0
+        self.stacks = dict()
+        self.charts = dict()
+        self.purchase_price = None
+        self.highest_price = None
+
+    def update_chart(self, pair: str, new_candle_str: str):
+        if not (pair in self.charts):
+            self.charts[pair] = Chart()
+        new_candle_obj = Candle(self.candleFormat, new_candle_str)
+        self.charts[pair].add_candle(new_candle_obj)
+
+    def update_stack(self, key: str, value: float):
+        self.stacks[key] = value
+
+    def update_settings(self, key: str, value: str):
+        if key == "timebank":
+            self.maxTimeBank = int(value)
+            self.timeBank = int(value)
+        if key == "time_per_move":
+            self.timePerMove = int(value)
+        if key == "candle_interval":
+            self.candleInterval = int(value)
+        if key == "candle_format":
+            self.candleFormat = value.split(",")
+        if key == "candles_total":
+            self.candlesTotal = int(value)
+        if key == "candles_given":
+            self.candlesGiven = int(value)
+        if key == "initial_stack":
+            self.initialStack = int(value)
+        if key == "transaction_fee_percent":
+            self.transactionFee = float(value)
+
+    def update_game(self, key: str, value: str):
+        if key == "next_candles":
+            new_candles = value.split(";")
+            self.date = int(new_candles[0].split(",")[1])
+            for candle_str in new_candles:
+                candle_infos = candle_str.strip().split(",")
+                self.update_chart(candle_infos[0], candle_str)
+        if key == "stacks":
+            new_stacks = value.split(",")
+            for stack_str in new_stacks:
+                stack_infos = stack_str.strip().split(":")
+                self.update_stack(stack_infos[0], float(stack_infos[1]))
+
+if __name__ == "__main__":
+    mybot = Bot()
+    mybot.run()

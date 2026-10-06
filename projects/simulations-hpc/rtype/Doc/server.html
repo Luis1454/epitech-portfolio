@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background: #444;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block.
+        }
+        nav ul li a:hover {
+            background: #555;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+            margin-top: 2rem;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Server Documentation</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="client.html">Client</a></li>
+            <li><a href="server.html">Server</a></li>
+            <li><a href="Ecs.html">ECS</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Introduction</h2>
+        <p>This documentation describes the functionality of the R-Type server, which handles multiplayer game sessions, manages game state, and communicates with clients using UDP.</p>
+
+        <h2>Key Features</h2>
+        <ul>
+            <li>UDP-based network communication</li>
+            <li>Real-time game state management</li>
+            <li>Entity Component System (ECS) for game logic</li>
+            <li>Scalable and modular architecture</li>
+        </ul>
+
+        <h2>Server Architecture</h2>
+        <p>The server is built using an Entity Component System (ECS) framework to manage game entities and their behaviors. The main components of the server are:</p>
+        <ul>
+            <li><strong>UdpServer:</strong> Manages UDP communication with clients.</li>
+            <li><strong>ECS:</strong> Manages entities, components, and systems.</li>
+            <li><strong>Parser:</strong> Parses incoming data and handles commands.</li>
+            <li><strong>Track:</strong> Manages game levels and tracks.</li>
+        </ul>
+
+        <h2>UdpServer Class</h2>
+        <p>The <code>UdpServer</code> class handles the UDP server. Here are its main features:</p>
+
+        <h3>Constructor</h3>
+        <pre><code>UdpServer(uint16_t port)</code></pre>
+        <p>Initializes the server on the specified port. Sets up the socket and performs the binding.</p>
+
+        <h3>Main Methods</h3>
+        <ul>
+            <li><code>void start()</code>: Starts the server in a separate thread.</li>
+            <li><code>void stop()</code>: Stops the server.</li>
+            <li><code>void run()</code>: The main server loop that handles packet reception and processing.</li>
+            <li><code>void process_packet(const std::vector&lt;uint8_t&gt;& packet)</code>: Processes received packets.</li>
+        </ul>
+
+        <h2>Server Workflow</h2>
+        <ol>
+            <li>The server is initialized with a specific port.</li>
+            <li>The <code>start()</code> method launches the server in a separate thread.</li>
+            <li>In the main loop (<code>run()</code>), the server continuously waits for UDP packets.</li>
+            <li>When a packet is received, it is processed by <code>process_packet()</code>.</li>
+            <li>The server can handle two types of packets:
+                <ul>
+                    <li>Type 0x01: Position data (X, Y, direction, speed)</li>
+                    <li>Type 0x02: Client username</li>
+                </ul>
+            </li>
+            <li>After processing, the server echoes the packet back to the client.</li>
+        </ol>
+
+        <h2>Packet Format</h2>
+        <h3>Position Packet (Type 0x01)</h3>
+        <pre>
+[0]     : Type (0x01)
+[1-2]   : ID (2 bytes)
+[3-4]   : Position X (12 bits)
+[4-5]   : Position Y (12 bits)
+[6]     : Direction
+[7]     : Speed
+        </pre>
+
+        <h3>Username Packet (Type 0x02)</h3>
+        <pre>
+[0]     : Type (0x02)
+[1-2]   : ID (2 bytes)
+[3-17]  : Username (15 characters max)
+        </pre>
+
+        <h2>Error Handling</h2>
+        <p>The server handles the following errors:</p>
+        <ul>
+            <li>Initialization errors (socket creation, binding)</li>
+            <li>Packet reception errors</li>
+            <li>Response sending errors</li>
+            <li>Packets that are too short or of unknown type</li>
+        </ul>
+
+        <h2>Compatibility</h2>
+        <p>The code includes preprocessor directives to ensure compatibility between Windows and Unix/Linux systems.</p>
+
+        <h2>Example Code Snippets</h2>
+        <h3>Initializing the Server</h3>
+        <pre>
+#include "UdpServer.hpp"
+#include "ECS/ECS.hpp"
+#include "Parser.hpp"
+#include "Track.hpp"
+
+int main() {
+    UdpServer server(8080);
+    server.start();
+
+    // Main game loop
+    while (true) {
+        server.run();
+    }
+
+    server.stop();
+    return 0;
+}
+        </pre>
+
+        <h3>Processing Packets</h3>
+        <pre>
+void UdpServer::process_packet(const std::vector<uint8_t>& packet) {
+    // Example packet processing logic
+    if (packet[0] == 0x01) {
+        // Handle position packet
+    } else if (packet[0] == 0x02) {
+        // Handle username packet
+    }
+}
+        </pre>
+
+        <h2>Conclusion</h2>
+        <p>This UDP server provides a solid foundation for real-time communication, particularly suited for applications like networked games where transmission speed is critical.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Project Documentation</p>
+    </footer>
+</body>
+</html>

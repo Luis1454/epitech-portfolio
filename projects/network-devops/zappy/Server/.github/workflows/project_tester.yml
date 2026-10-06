@@ -1,0 +1,58 @@
+name: Project Tester
+
+on:
+  push:
+    branches-ignore:
+      - 'ga-ignore-**'
+  pull_request:
+    branches-ignore:
+      - 'ga-ignore-**'
+
+env:
+  EXECUTABLES: "Zappy_server, Zappy_ai, Zappy_gui"
+
+jobs:
+  checking_coding_style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Coding Style checker
+        run: |
+          check.sh $(pwd) $(pwd)
+          while read Line; \
+          do \
+          ARG1=$(echo $Line | cut -d: -f1); \
+          ARG2=$(echo $Line | cut -d: -f2); \
+          ARG3=$(echo $Line | cut -d: -f3); \
+          ARG4=$(echo $Line | cut -d: -f4); \
+          echo "::error file=$ARG1, line=$ARG2:: $ARG3 $ARG4"; \
+          done < coding-style-reports.log
+          if [ -s coding-style-reports.log ]; then
+            exit 1
+          fi
+
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile the program
+        run: make
+        timeout-minutes: 2
+      - name: Clean the useless files
+        run: make clean
+      - name: Check each executables
+        run: |
+          IFS=','
+          for value in $EXECUTABLES; do
+            if [ -e $value ]; then
+              exit 0
+            else
+              exit 1
+            fi
+          done

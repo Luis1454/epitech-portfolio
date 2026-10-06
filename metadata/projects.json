@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-06",
-  "projects_count": 38,
+  "projects_count": 51,
   "projects": [
     {
       "name": "antman-compression",
@@ -11,6 +11,14 @@
       "files": 87
     },
     {
+      "name": "bistromatic",
+      "title": "Bistromatic — Arbitrary-Precision BigInt Arithmetic Engine",
+      "domain": "algorithms-ai",
+      "path": "projects/algorithms-ai/bistromatic",
+      "summary": "Bistromatic evaluates deeply nested arithmetic expressions involving numbers of infinite length (constrained only by available system RAM). It features custom big-integer addition, subtraction, multiplication, division, and modulo routines, paired with an operator-precedence expression evaluator.",
+      "files": 50
+    },
+    {
       "name": "bsq",
       "title": "BSQ — Dynamic Programming Maximal Square Finder",
       "domain": "algorithms-ai",
@@ -19,12 +27,28 @@
       "files": 93
     },
     {
+      "name": "cryptography",
+      "title": "Cryptography — Symmetric & Asymmetric Cipher Toolkit",
+      "domain": "algorithms-ai",
+      "path": "projects/algorithms-ai/cryptography",
+      "summary": "This repository provides foundational implementations of both symmetric and asymmetric encryption schemes. It emphasizes clean mathematical formulations, modular arithmetic operations, and cryptanalytic tooling to demonstrate vulnerability vectors in weak cipher designs.",
+      "files": 7
+    },
+    {
       "name": "dante-star",
       "title": "Dante's Star — Maze Generator & A* / Dijkstra Pathfinding Engine",
       "domain": "algorithms-ai",
       "path": "projects/algorithms-ai/dante-star",
       "summary": "High-throughput maze generator creating perfect and imperfect 2D labyrinths paired with optimized A* and Dijkstra pathfinding solvers.",
       "files": 1
+    },
+    {
+      "name": "evalexpr",
+      "title": "EvalExpr — Recursive Descent Expression Parser & AST Evaluation",
+      "domain": "algorithms-ai",
+      "path": "projects/algorithms-ai/evalexpr",
+      "summary": "EvalExpr computes mathematical expressions directly from a character string. By utilizing a recursive descent grammar parser, it eliminates the need for external parsing generators or postfix conversion passes, evaluating values in a single recursive traversal.",
+      "files": 40
     },
     {
       "name": "fastatools",
@@ -67,6 +91,14 @@
       "files": 1
     },
     {
+      "name": "neural-network",
+      "title": "Neural Network — Multi-Layer Perceptron & Gradient Descent from Scratch",
+      "domain": "algorithms-ai",
+      "path": "projects/algorithms-ai/neural-network",
+      "summary": "This project implements a multi-layer feedforward perceptron designed for classification and regression tasks. It implements matrix mathematical operations, activation functions, and reverse-mode automatic differentiation (backpropagation) to optimize network weights via stochastic gradient descent.",
+      "files": 14
+    },
+    {
       "name": "pushswap",
       "title": "Pushswap — Constrained Double-Stack Sorting Optimization",
       "domain": "algorithms-ai",
@@ -81,6 +113,14 @@
       "path": "projects/algorithms-ai/sokoban",
       "summary": "Terminal warehouse box-pushing puzzle engine featuring map validation, real-time keyboard interaction, collision detection, and win/loss condition tracking.",
       "files": 97
+    },
+    {
+      "name": "trade",
+      "title": "Trade — Real-Time Algorithmic Trading Bot & Market Signal Analysis",
+      "domain": "algorithms-ai",
+      "path": "projects/algorithms-ai/trade",
+      "summary": "Trade interacts with simulated or live market exchange APIs, processing tick and candlestick data in real time. It computes technical indicators across rolling windows to detect momentum shifts, trend reversals, and breakout opportunities, automatically issuing market and limit orders.",
+      "files": 51
     },
     {
       "name": "silicium-eip",
@@ -131,6 +171,22 @@
       "files": 20
     },
     {
+      "name": "the-plazza",
+      "title": "The Plazza — Concurrency, Multiprocess IPC & Dynamic Thread Pools",
+      "domain": "network-devops",
+      "path": "projects/network-devops/the-plazza",
+      "summary": "The Plazza simulates a high-throughput order dispatching and processing facility. A main reception engine receives order inputs, analyzes workload metrics, and dynamically spawns kitchen subprocesses. Each kitchen manages a fixed thread pool to cook items concurrently while IPC channels maintain bidirectional state synchronization.",
+      "files": 40
+    },
+    {
+      "name": "zappy",
+      "title": "Zappy — High-Throughput Networked Simulation & Autonomous AI Protocol",
+      "domain": "network-devops",
+      "path": "projects/network-devops/zappy",
+      "summary": "Zappy models an alien civilization surviving on a grid-based resource world (`Trantor`). The system comprises three independently communicating components synchronized via a strict custom TCP protocol:",
+      "files": 196
+    },
+    {
       "name": "109titration",
       "title": "109titration — Chemical pH Curve Numerical Derivative Analysis",
       "domain": "scientific-computing",
@@ -179,6 +235,14 @@
       "files": 106
     },
     {
+      "name": "arcade",
+      "title": "Arcade — Modular Gaming Platform & Dynamic Graphic Libraries",
+      "domain": "simulations-hpc",
+      "path": "projects/simulations-hpc/arcade",
+      "summary": "Arcade solves the problem of cross-toolkit graphics abstraction by operating entirely through dynamic shared libraries loaded at runtime (`dlopen(3)`, `dlsym(3)`). The core engine manages event dispatching and entity states, allowing users to switch graphic libraries (e.g. from SFML to SDL2 or an NCurses terminal interface) and game cartridges (Snake, Nibbler, Pacman) on the fly without restarting or recompiling.",
+      "files": 34
+    },
+    {
       "name": "myhunter",
       "title": "myHunter — 2D Arcade Game Engine & Sprite Animation",
       "domain": "simulations-hpc",
@@ -203,12 +267,36 @@
       "files": 128
     },
     {
+      "name": "myrpg",
+      "title": "myRPG — 2D Role-Playing Game Engine & Real-Time Event Loop",
+      "domain": "simulations-hpc",
+      "path": "projects/simulations-hpc/myrpg",
+      "summary": "myRPG is an interactive role-playing game developed from first principles in C. The architecture isolates the rendering loop, input handling, entity management, and user interface layers, delivering smooth 60 FPS performance with custom particle emitters and modular dialogue systems.",
+      "files": 135
+    },
+    {
+      "name": "myworld",
+      "title": "myWorld — 3D Isometric Terrain Modeling & Heightmap Engine",
+      "domain": "simulations-hpc",
+      "path": "projects/simulations-hpc/myworld",
+      "summary": "myWorld allows users to generate, visualize, and sculpt three-dimensional terrain maps in real time. It calculates mathematical projections to transform 3D grid vertices into a 2D isometric viewport, providing intuitive elevation controls and texture mapping.",
+      "files": 55
+    },
+    {
       "name": "relativistic-raytracer",
       "title": "Relativistic Raytracer — Curved Spacetime Geodesic Engine",
       "domain": "simulations-hpc",
       "path": "projects/simulations-hpc/relativistic-raytracer",
       "summary": "Optical raytracing simulation modeling photon trajectories along null geodesics in curved spacetime metrics (Schwarzschild and Kerr black holes) using numerical differential integrators.",
       "files": 1
+    },
+    {
+      "name": "rtype",
+      "title": "R-Type — Cross-Platform Multiplayer Networked Game Engine (ECS)",
+      "domain": "simulations-hpc",
+      "path": "projects/simulations-hpc/rtype",
+      "summary": "R-Type replicates the classic side-scrolling arcade shooter as a distributed, networked multiplayer platform. The engine is architected around an in-house Entity-Component-System (ECS) model to ensure deterministic game state updates, high cache locality, and scalable concurrency across client and server runtimes.",
+      "files": 142
     },
     {
       "name": "screensaver",
@@ -227,6 +315,14 @@
       "files": 57
     },
     {
+      "name": "tetris",
+      "title": "Tetris — Terminal Grid Engine & NCurses Event Loop",
+      "domain": "simulations-hpc",
+      "path": "projects/simulations-hpc/tetris",
+      "summary": "This implementation features a robust terminal UI engine running in raw terminal mode, completely detached from line buffering. It dynamically loads external tetromino shape definition files, validates geometries, and drives standard game mechanics (rotation, line clears, score scaling, speed ramping).",
+      "files": 54
+    },
+    {
       "name": "42sh",
       "title": "42sh — POSIX-Compliant Unix Shell Architecture",
       "domain": "systems-kernel",
@@ -241,6 +337,14 @@
       "path": "projects/systems-kernel/asm-minilibc",
       "summary": "Clean-room implementation of standard C library memory and string primitives written entirely in pure x86-64 assembly, strictly adhering to the System V AMD64 ABI specification.",
       "files": 14
+    },
+    {
+      "name": "corewar",
+      "title": "Corewar — Virtual Machine, Bytecode Assembler & Memory Arena",
+      "domain": "systems-kernel",
+      "path": "projects/systems-kernel/corewar",
+      "summary": "Corewar is composed of two primary subsystems:",
+      "files": 140
     },
     {
       "name": "ftrace",

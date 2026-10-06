@@ -1,0 +1,9 @@
+controls
+    suppr       : clear map
+    arrows      : rotation vers le haut de la map
+    space       : stop rotation
+    left click  : add matter
+    right click : remove matter
+    mouse wheel : zoom
+    numpad -    : enlarge brush size
+    numpad +    : reduce brush size

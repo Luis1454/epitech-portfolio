@@ -1,0 +1,44 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - '**' # Tester sur toutes les branches
+  pull_request:
+    branches:
+      - '**' # Tester sur toutes les branches pour les PR
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Récupérer le code du dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Étape 2 : Configurer CMake
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v1
+        with:
+          cmake-version: '3.16'
+
+      # Étape 3 : Installer les dépendances requises (Linux seulement ici)
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+
+      # Étape 4 : Configurer le projet
+      - name: Configure project
+        run: cmake -B build -S .
+
+      # Étape 5 : Compiler le projet
+      - name: Build project
+        run: cmake --build build --config Release
+
+      # Étape 6 : Tester le projet (si applicable)
+      - name: Run tests
+        run: |
+          cd build
+          ctest --output-on-failure

@@ -1,0 +1,6 @@
+CMakeFiles
+build
+CPM_modules
+*.txt
+*.cmake
+r-type_*

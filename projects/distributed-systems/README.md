@@ -1,9 +1,7 @@
-# Distributed Systems & Blockchain
+# Distributed Systems, Consensus Protocols & Binary Partitioning
 
-Decentralized compute infrastructure, smart contracts, and high-performance micro-runtimes.
+This directory contains **1 implementations** in the `distributed-systems` engineering domain.
 
-## Projects
-
-| Project | Description | Core Stack |
-| --- | --- | --- |
-| [Silicium Network](silicium-eip/) | Decentralized IoT compute protocol with containerized C++ ELF partitioner and Solana smart contracts. | Rust, C++, Solana, Docker |
+| Project | Title / Description | Files |
+| :--- | :--- | :---: |
+| [`silicium-eip`](./silicium-eip/) | **Silicium Network — Decentralized IoT Compute & ELF Partitioner</strong><br>High-throughput distributed computing protocol harnessing low-power IoT devices via Solana and Anchor. Features a containerized C++ ELF binary partitioner and recursive task delegation protocols. | `538` |

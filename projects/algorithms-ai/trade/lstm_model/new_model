@@ -1,0 +1,325 @@
+#!/usr/bin/env python3
+
+##
+## EPITECH PROJECT, 2024
+## B-CNA-410-LIL-4-1-trade-nicolas1.nguyen
+## File description:
+## trade
+##
+
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import os
+
+def moving_average(data, window_size):
+    weights = np.ones(window_size) / window_size
+    return np.convolve(data, weights, mode='valid')
+
+def rsi(data, window_size=14):
+    deltas = np.diff(data)
+    seed = deltas[:window_size + 1]
+    up = seed[seed >= 0].sum() / window_size
+    down = -seed[seed < 0].sum() / window_size
+    rs = up / down
+    rsi = np.zeros_like(data)
+    rsi[:window_size] = 100. - 100. / (1. + rs)
+
+    for i in range(window_size, len(data)):
+        delta = deltas[i - 1]
+
+        if delta > 0:
+            upval = delta
+            downval = 0.
+        else:
+            upval = 0.
+            downval = -delta
+
+        up = (up * (window_size - 1) + upval) / window_size
+        down = (down * (window_size - 1) + downval) / window_size
+
+        rs = up / down
+        rsi[i] = 100. - 100. / (1. + rs)
+
+    return rsi
+
+def ema(data, span):
+    alpha = 2 / (span + 1)
+    ema = np.zeros_like(data)
+    ema[0] = data[0]
+    for i in range(1, len(data)):
+        ema[i] = alpha * data[i] + (1 - alpha) * ema[i - 1]
+    return ema
+
+def macd(data, fast_span=12, slow_span=26, signal_span=9):
+    ema_fast = ema(data, fast_span)
+    ema_slow = ema(data, slow_span)
+    macd_line = ema_fast - ema_slow
+    signal_line = ema(macd_line, signal_span)
+    macd_histogram = macd_line - signal_line
+    return macd_line, signal_line, macd_histogram
+
+def add_technical_indicators(data):
+    closes = data['close']
+
+    if len(closes) < 26:
+        raise ValueError("Not enough data to compute technical indicators")
+
+    ma_5 = moving_average(closes, 5)
+    ma_10 = moving_average(closes, 10)
+
+    data['MA_5'] = np.concatenate([np.full(4, np.nan), ma_5])
+    data['MA_10'] = np.concatenate([np.full(9, np.nan), ma_10])
+
+    data['RSI'] = rsi(closes, 14)
+
+    macd_line, macd_signal, macd_hist = macd(closes, fast_span=12, slow_span=26, signal_span=9)
+    data['MACD'] = macd_line
+    data['MACD_signal'] = macd_signal
+    data['MACD_hist'] = macd_hist
+
+    numeric_cols = ['MA_5', 'MA_10', 'RSI', 'MACD', 'MACD_signal', 'MACD_hist']
+    for col in numeric_cols:
+        data[col] = np.nan_to_num(data[col])
+
+    return data
+
+def load_data(csv_files):
+    data_list = []
+    for file in csv_files:
+        data = pd.read_csv(file)
+        data_list.append(data)
+    combined_data = pd.concat(data_list, ignore_index=True)
+    combined_data = add_technical_indicators(combined_data)
+    combined_data['label'] = (combined_data['close'] > combined_data['open']).astype(int)
+    X = combined_data[['high', 'low', 'open', 'close', 'volume', 'MA_5', 'MA_10', 'RSI', 'MACD', 'MACD_signal', 'MACD_hist']].values
+    y = combined_data['label'].values
+    return X, y, combined_data
+
+def normalize_data(X):
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    os.makedirs('parameters', exist_ok=True)
+    np.save('parameters/scaler_mean.npy', scaler.mean_)
+    np.save('parameters/scaler_scale.npy', scaler.scale_)
+    return X_scaled
+
+def sigmoid(x):
+    x = np.clip(x, -500, 500)
+    return 1 / (1 + np.exp(-x))
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x))
+    return e_x / e_x.sum(axis=0)
+
+def sigmoid_derivative(x):
+    return x * (1 - x)
+
+def initialize_parameters(input_dim, hidden_dim, output_dim, dropout_rate=0.2):
+    parameters = {
+        'Wf': np.random.randn(hidden_dim, hidden_dim + input_dim) * 0.01,
+        'Wi': np.random.randn(hidden_dim, hidden_dim + input_dim) * 0.01,
+        'Wo': np.random.randn(hidden_dim, hidden_dim + input_dim) * 0.01,
+        'Wc': np.random.randn(hidden_dim, hidden_dim + input_dim) * 0.01,
+        'Wy': np.random.randn(output_dim, hidden_dim) * 0.01,
+        'bf': np.zeros((hidden_dim, 1)),
+        'bi': np.zeros((hidden_dim, 1)),
+        'bo': np.zeros((hidden_dim, 1)),
+        'bc': np.zeros((hidden_dim, 1)),
+        'by': np.zeros((output_dim, 1)),
+        'dropout_rate': dropout_rate
+    }
+    return parameters
+
+def lstm_forward(x, h_prev, c_prev, parameters):
+    Wf, Wi, Wo, Wc, Wy = parameters['Wf'], parameters['Wi'], parameters['Wo'], parameters['Wc'], parameters['Wy']
+    bf, bi, bo, bc, by = parameters['bf'], parameters['bi'], parameters['bo'], parameters['bc'], parameters['by']
+    dropout_rate = parameters['dropout_rate']
+
+    concat = np.concatenate((h_prev, x), axis=0)
+
+    ft = sigmoid(np.dot(Wf, concat) + bf)
+    it = sigmoid(np.dot(Wi, concat) + bi)
+    ot = sigmoid(np.dot(Wo, concat) + bo)
+    cct = np.tanh(np.dot(Wc, concat) + bc)
+
+    c_next = ft * c_prev + it * cct
+    h_next = ot * np.tanh(c_next)
+
+    mask = np.random.rand(*h_next.shape) > dropout_rate
+    h_next *= mask
+    h_next /= (1 - dropout_rate)
+
+    y = np.dot(Wy, h_next) + by
+    y = softmax(y)
+
+    cache = (h_next, c_next, h_prev, c_prev, ft, it, ot, cct, x, mask)
+
+    return y, h_next, c_next, cache
+
+def compute_loss(y_hat, y):
+    m = y.shape[0]
+    loss = -np.sum(y * np.log(y_hat + 1e-8)) / m
+    return loss
+
+def lstm_backward(y_hat, y, cache, parameters, gradients):
+    (h_next, c_next, h_prev, c_prev, ft, it, ot, cct, x, mask) = cache
+    Wf, Wi, Wo, Wc, Wy = parameters['Wf'], parameters['Wi'], parameters['Wo'], parameters['Wc'], parameters['Wy']
+
+    dy = y_hat - y
+    gradients['dWy'] += np.dot(dy, h_next.T)
+    gradients['dby'] += np.sum(dy, axis=1, keepdims=True)
+
+    dh_next = np.dot(Wy.T, dy)
+    dh_next *= mask
+    dh_next /= (1 - parameters['dropout_rate'])
+
+    do = dh_next * np.tanh(c_next) * sigmoid_derivative(ot)
+    dc_next = dh_next * ot * (1 - np.tanh(c_next)**2)
+
+    dcct = dc_next * it * (1 - cct**2)
+    dWc = np.dot(dcct, np.concatenate((h_prev, x), axis=0).T)
+    dbc = np.sum(dcct, axis=1, keepdims=True)
+
+    dft = dc_next * c_prev * sigmoid_derivative(ft)
+    dWf = np.dot(dft, np.concatenate((h_prev, x), axis=0).T)
+    dbf = np.sum(dft, axis=1, keepdims=True)
+
+    dit = dc_next * cct * sigmoid_derivative(it)
+    dWi = np.dot(dit, np.concatenate((h_prev, x), axis=0).T)
+    dbi = np.sum(dit, axis=1, keepdims=True)
+
+    gradients['dWf'] += dWf
+    gradients['dbf'] += dbf
+    gradients['dWi'] += dWi
+    gradients['dbi'] += dbi
+    gradients['dWo'] += do
+    gradients['dbo'] += np.sum(do, axis=1, keepdims=True)
+    gradients['dWc'] += dWc
+    gradients['dbc'] += dbc
+
+    return gradients
+
+def update_parameters(parameters, gradients, learning_rate):
+    for key in parameters.keys():
+        if key != 'dropout_rate':
+            parameters[key] -= learning_rate * gradients['d' + key]
+    return parameters
+
+def train_model(X, y, input_dim, hidden_dim, output_dim, learning_rate, num_iterations, batch_size):
+    parameters = initialize_parameters(input_dim, hidden_dim, output_dim)
+    num_batches = X.shape[0] // batch_size
+
+    for i in range(num_iterations):
+        gradients = {
+            'dWf': np.zeros_like(parameters['Wf']),
+            'dWi': np.zeros_like(parameters['Wi']),
+            'dWo': np.zeros_like(parameters['Wo']),
+            'dWc': np.zeros_like(parameters['Wc']),
+            'dWy': np.zeros_like(parameters['Wy']),
+            'dbf': np.zeros_like(parameters['bf']),
+            'dbi': np.zeros_like(parameters['bi']),
+            'dbo': np.zeros_like(parameters['bo']),
+            'dbc': np.zeros_like(parameters['bc']),
+            'dby': np.zeros_like(parameters['by'])
+        }
+        loss = 0
+
+        for b in range(num_batches):
+            batch_start = b * batch_size
+            batch_end = batch_start + batch_size
+            X_batch = X[batch_start:batch_end]
+            y_batch = y[batch_start:batch_end]
+
+            h_prev = np.zeros((hidden_dim, 1))
+            c_prev = np.zeros((hidden_dim, 1))
+
+            for j in range(X_batch.shape[0]):
+                x = X_batch[j].reshape(-1, 1)
+                y_true = np.zeros((output_dim, 1))
+                y_true[int(y_batch[j])] = 1
+
+                y_hat, h_next, c_next, cache = lstm_forward(x, h_prev, c_prev, parameters)
+                loss += compute_loss(y_hat, y_true)
+                gradients = lstm_backward(y_hat, y_true, cache, parameters, gradients)
+                h_prev, c_prev = h_next, c_next
+
+            parameters = update_parameters(parameters, gradients, learning_rate)
+        if i % 100 == 0:
+            print(f"Iteration {i}, Loss: {loss}")
+
+    return parameters
+
+def save_parameters(parameters, prefix):
+    os.makedirs('parameters', exist_ok=True)
+    for key, value in parameters.items():
+        np.save(f'parameters/{prefix}_{key}.npy', value)
+
+def evaluate_model(X, y, parameters):
+    h_prev = np.zeros((parameters['bf'].shape[0], 1))
+    c_prev = np.zeros((parameters['bf'].shape[0], 1))
+    predictions = []
+
+    for j in range(X.shape[0]):
+        x = X[j].reshape(-1, 1)
+        y_hat, h_next, c_next, _ = lstm_forward(x, h_prev, c_prev, parameters)
+        predictions.append(np.argmax(y_hat))
+        h_prev, c_prev = h_next, c_next
+
+    accuracy = accuracy_score(y, predictions)
+    print(f"Model Accuracy: {accuracy}")
+    return predictions
+
+def trading_strategy(predictions, prices, initial_balance, position_fraction=0.1, stop_loss=0.05, take_profit=0.1):
+    balance = initial_balance
+    bitcoin = 0
+    balance_history = []
+
+    for i, prediction in enumerate(predictions):
+        price = prices[i]
+
+        trade_amount = balance * position_fraction
+
+        if prediction == 1:  # Buy signal
+            if balance >= trade_amount:
+                bitcoin += trade_amount / price
+                balance -= trade_amount
+                entry_price = price
+                balance_history.append(balance + bitcoin * price)
+        elif prediction == 0 and bitcoin > 0:  # Sell signal
+            balance += bitcoin * price
+            bitcoin = 0
+            balance_history.append(balance)
+
+        if bitcoin > 0:
+            current_value = bitcoin * price
+            if (price < entry_price * (1 - stop_loss)) or (price > entry_price * (1 + take_profit)):
+                balance += current_value
+                bitcoin = 0
+                balance_history.append(balance)
+
+    final_value = balance + (bitcoin * prices[-1])
+    balance_history.append(final_value)
+    return final_value
+
+csv_files = [
+    'data_sets/training-set_USDT_BTC-1.csv',
+    'data_sets/training-set_USDT_BTC-2.csv',
+    'data_sets/training-set_USDT_BTC-3.csv',
+]
+X, y, data = load_data(csv_files)
+X = normalize_data(X)
+input_dim = X.shape[1]
+hidden_dim = 50
+output_dim = 2
+learning_rate = 0.0005
+num_iterations = 3000
+batch_size = 16
+
+parameters = train_model(X, y, input_dim, hidden_dim, output_dim, learning_rate, num_iterations, batch_size)
+save_parameters(parameters, 'model')
+
+predictions = evaluate_model(X, y, parameters)
+final_balance = trading_strategy(predictions, data['close'].values, 1000)
+print(f"Final Balance: {final_balance}")

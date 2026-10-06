@@ -1,0 +1,13 @@
+corewar_binaries
+*.o
+*.a
+*.~
+asm/asm
+corewar/corewar
+*.log
+.vscode
+*#
+vgcore.*
+*.s
+*.cor
+champions

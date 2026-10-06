@@ -1,0 +1,11 @@
+*.log
+*~
+*#
+*.gcda
+*.gcno
+*.gcov
+*.o
+*.a
+test*
+.vscode
+my_rpg

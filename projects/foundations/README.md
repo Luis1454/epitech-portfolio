@@ -1,8 +1,8 @@
-# Systems Programming Foundations
+# Core Language Foundations & Systems Programming Mechanics
 
-Language progressions and fundamental exercises covering core data structures, memory management, and OOP.
+This directory contains **2 implementations** in the `foundations` engineering domain.
 
-## Subdirectories
-
-- [C Pool](c-pool/): Foundational C language progression covering pointer arithmetic, linked lists, memory buffers, and recursive algorithms.
-- [C++ Pool](cpp-pool/): Modern C++ progression covering RAII resource management, abstract interfaces, templates, and STL algorithms.
+| Project | Title / Description | Files |
+| :--- | :--- | :---: |
+| [`c-pool`](./c-pool/) | **C Systems Programming Foundations & Algorithms</strong><br>Comprehensive foundational implementation suite covering standard C library recreation, memory manipulation, string algorithms, linked structures, and binary utilities. | `616` |
+| [`cpp-pool`](./cpp-pool/) | **Modern C++ Object-Oriented Systems & Templates</strong><br>Modern C++ progression covering RAII resource management, object-oriented encapsulation, polymorphism, operator overloading, and template metaprogramming. | `172` |

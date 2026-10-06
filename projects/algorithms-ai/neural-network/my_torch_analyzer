@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+import sys
+import os
+
+class NetworkAnalyzer:
+    def __init__(self, network_generator):
+        self.network = {}
+
+def usage():
+    print("USAGE")
+    print("./my_torch_analyzer [--predict | --train [--save SAVEFILE]] LOADFILE FILE")
+    print()
+    print("DESCRIPTION")
+    print("--train Launch the neural network in training mode. Each chessboard in FILE must contain inputs to send to the neural network in FEN notation and the expected output separated by space. If specified, the newly trained neural network will be saved in SAVEFILE. Otherwise, it will be saved in the original LOADFILE.")
+    print("--predict Launch the neural network in prediction mode. Each chessboard in FILE must contain inputs to send to the neural network in FEN notation, and optionally an expected output.")
+    print("--save Save neural network into SAVEFILE. Only works in train mode.")
+    print("LOADFILE File containing an artificial neural network")
+    print("FILE File containing chessboards")
+
+def main():
+    if len(sys.argv) == 2 and (sys.argv[1] == '-h' or sys.argv[1] == '--help'):
+        usage()
+        return 0
+    if len(sys.argv) > 3 and sys.argv[1] == '--train' and sys.argv[2] == '--save':
+        save_file = sys.argv[3]
+        load_file = sys.argv[4]
+    elif len(sys.argv) == 4 and sys.argv[1] == '--train':
+        load_file = sys.argv[2]
+        save_file = load_file
+    elif len(sys.argv) == 3 and sys.argv[1] == '--predict':
+        load_file = sys.argv[2]
+    else:
+        print("Error: Incorrect number of arguments.")
+        usage()
+        return 1
+
+if __name__ == "__main__":
+    exit(main())

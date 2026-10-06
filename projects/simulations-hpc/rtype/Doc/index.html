@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background: #444;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        nav ul li a:hover {
+            background: #555;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+            margin-top: 2rem;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Documentation</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="client.html">Client</a></li>
+            <li><a href="server.html">Server</a></li>
+            <li><a href="Ecs.html">ECS</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Welcome to the Documentation</h2>
+        <p>Explore the sections below to learn more about the project:</p>
+        <ul>
+            <li><a href="client.html">Client</a>: Details about the client implementation.</li>
+            <li><a href="server.html">Server</a>: Details about the server implementation.</li>
+            <li><a href="Ecs.html">ECS</a>: Entity Component System (ECS) details.</li>
+        </ul>
+
+        <h2>🚀 Project Setup Guide</h2>
+
+        <h3>🛠️ How to Start the Project</h3>
+
+        <h4>1. Configure the Cross-Platform Dependencies</h4>
+        <p>Follow the instructions based on your operating system:</p>
+        <h5>On Ubuntu:</h5>
+        <pre>
+./ubuntu_installer.sh
+        </pre>
+        <h5>On Fedora:</h5>
+        <pre>
+./fedora_installer.sh
+        </pre>
+        <h5>On Windows:</h5>
+        <pre>
+./windows_install.bat
+        </pre>
+
+        <h4>2. Execute the Project with CMake</h4>
+        <h5>Generate Configuration Files:</h5>
+        <pre>
+cmake .
+        </pre>
+        <h5>Compile the Project:</h5>
+        <pre>
+cmake --build .
+        </pre>
+        <h5>Launch the Server:</h5>
+        <pre>
+./r-type_server
+        </pre>
+        <h5>Launch the Client:</h5>
+        <pre>
+./r-type_client
+        </pre>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Project Documentation</p>
+    </footer>
+</body>
+</html>

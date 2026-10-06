@@ -1,14 +1,12 @@
-# Scientific Computing & Mathematics
+# Scientific Computing, Numerical Methods & Statistical Analysis
 
-Numerical mathematics, computational chemistry, time-series telemetry analysis, and algorithm verification.
+This directory contains **6 implementations** in the `scientific-computing` engineering domain.
 
-## Projects
-
-| Project | Description | Core Stack |
-| --- | --- | --- |
-| [109titration](109titration/) | Chemical pH curve analysis computing second derivatives via cubic spline interpolation. | Python 3, Numerical Analysis |
-| [Groundhog](groundhog/) | Real-time sliding window telemetry processor detecting trend switches and standard deviations. | Python 3, Time Series |
-| [SBML Parser](sbmlparser/) | XML parser for Systems Biology Markup Language extracting chemical reactions and stoichiometry. | C, XML Parsing |
-| [Palindrome](palindrome/) | Number theory engine solving palindrome operations across arbitrary bases (2 to 36). | C, Number Theory |
-| [ProjTester](projtester/) | Automated black-box integration test runner validating binary streams and return codes. | C, Testing |
-| [Math Algorithms](math-algorithms/) | Suite of mathematical tools: 3D velocity vectors, affine matrices, Hill cipher, ray-surface quadratic intersections, and numerical integrals. | Python, C |
+| Project | Title / Description | Files |
+| :--- | :--- | :---: |
+| [`109titration`](./109titration/) | **109titration — Chemical pH Curve Numerical Derivative Analysis</strong><br>Computational chemistry utility calculating equivalence points in acid-base titration experiments using cubic spline interpolation and numerical differentiation. | `2` |
+| [`groundhog`](./groundhog/) | **Groundhog — Real-Time Financial & Environmental Trend Analysis</strong><br>Real-time rolling telemetry stream processor detecting trend switches, standard deviations, and temperature switches across temporal data feeds. | `6` |
+| [`math-algorithms`](./math-algorithms/) | **Numerical Mathematics & Scientific Algorithms</strong><br>Collection of applied numerical computing and scientific calculation utilities in Python and C. | `119` |
+| [`palindrome`](./palindrome/) | **Palindrome — Numerical Base Transformation & Palindrome Solver</strong><br>Number theory utility computing forward and reverse palindrome iteration counts across various numerical bases (from base 2 to base 36). | `95` |
+| [`projtester`](./projtester/) | **ProjTester — Automated Binary Integration Testing Framework</strong><br>Automated black-box test runner validating binary standard output, error streams, and exit codes against expected reference specifications. | `97` |
+| [`sbmlparser`](./sbmlparser/) | **SBML Parser — Systems Biology Markup Language Analyzer</strong><br>XML lexical parser and analyzer for Systems Biology Markup Language (SBML) files, extracting biochemical species, compartments, and kinetic reactions. | `106` |

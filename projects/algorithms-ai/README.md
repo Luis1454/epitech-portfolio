@@ -1,18 +1,21 @@
-# Algorithms, Artificial Intelligence & Data Structures
+# Algorithms, Data Structures, Autonomous Agents & Machine Learning
 
-Game theory engines, pathfinding, dynamic programming, bioinformatics, and data compression.
+This directory contains **15 implementations** in the `algorithms-ai` engineering domain.
 
-## Projects
-
-| Project | Description | Core Stack |
-| --- | --- | --- |
-| [Gomoku AI](gomoku-ai/) | Tournament Gomoku game engine utilizing Minimax search with Alpha-Beta pruning and bitboards. | Python 3, Minimax, Bitboards |
-| [Dante's Star](dante-star/) | Procedural maze generator and high-throughput A* / Dijkstra pathfinding solver. | C, Graph Search, A* |
-| [Lem-In](lemin/) | Maximum network flow pathfinding optimizing ant colony dispersal across disjoint paths. | C, Network Flow, BFS |
-| [Need4Stek](n4s-autonomous/) | Autonomous vehicle controller parsing 32-beam lidar telemetry with adaptive PID steering. | C, Robotics, PID Control |
-| [Pushswap](pushswap/) | Dual-stack sorting optimization operating under a restricted instruction set. | C, Stack Optimization |
-| [BSQ](bsq/) | 2D dynamic programming algorithm computing the maximal unobstructed square in linear time. | C, Dynamic Programming |
-| [FASTAtools](fastatools/) | Bioinformatics CLI toolkit for genomic FASTA sequence manipulation and k-mer frequency indexing. | C, Bioinformatics |
-| [Antman](antman-compression/) | Lossless multi-format data compression engine leveraging dictionary encoding and bit packing. | C, Data Compression |
-| [Sokoban](sokoban/) | Warehouse puzzle engine with map validation, terminal UI rendering, and deadlock detection. | C, Ncurses |
-| [InfinAdd](infinadd/) | Arbitrary-precision BigInt arithmetic engine supporting arbitrarily large numerical strings. | C, Arbitrary Precision |
+| Project | Title / Description | Files |
+| :--- | :--- | :---: |
+| [`antman-compression`](./antman-compression/) | **Antman — Multi-Format Lossless Data Compression</strong><br>Custom lossless data compression and decompression engine targeting text, HTML, and PBM image data via dictionary encoding and frequency-based bit packing. | `87` |
+| [`bistromatic`](./bistromatic/) | **Bistromatic — Arbitrary-Precision BigInt Arithmetic Engine</strong><br>Bistromatic evaluates deeply nested arithmetic expressions involving numbers of infinite length (constrained only by available system RAM). It features custom big-integer addition, subtraction, multiplication, division, and modulo routines, paired with an operator-precedence expression evaluator. | `50` |
+| [`bsq`](./bsq/) | **BSQ — Dynamic Programming Maximal Square Finder</strong><br>High-performance 2D grid processing algorithm finding the largest unobstructed square on a map containing arbitrary obstacles. | `93` |
+| [`cryptography`](./cryptography/) | **Cryptography — Symmetric & Asymmetric Cipher Toolkit</strong><br>This repository provides foundational implementations of both symmetric and asymmetric encryption schemes. It emphasizes clean mathematical formulations, modular arithmetic operations, and cryptanalytic tooling to demonstrate vulnerability vectors in weak cipher designs. | `7` |
+| [`dante-star`](./dante-star/) | **Dante's Star — Maze Generator & A* / Dijkstra Pathfinding Engine</strong><br>High-throughput maze generator creating perfect and imperfect 2D labyrinths paired with optimized A* and Dijkstra pathfinding solvers. | `1` |
+| [`evalexpr`](./evalexpr/) | **EvalExpr — Recursive Descent Expression Parser & AST Evaluation</strong><br>EvalExpr computes mathematical expressions directly from a character string. By utilizing a recursive descent grammar parser, it eliminates the need for external parsing generators or postfix conversion passes, evaluating values in a single recursive traversal. | `40` |
+| [`fastatools`](./fastatools/) | **FASTAtools — Genomic Sequence Analysis & k-mer Toolkit</strong><br>High-throughput bioinformatics command-line utility analyzing FASTA-formatted DNA and RNA sequences, computing k-mer frequencies, and detecting coding sequences. | `105` |
+| [`gomoku-ai`](./gomoku-ai/) | **Gomoku AI — Tournament Adversarial Game Engine</strong><br>High-performance Gomoku (Five-in-a-Row) game engine designed for competitive tournament play under the Gomocup protocol. Employs Minimax search with Alpha-Beta pruning, bitboard representations, and heuristic pattern evaluation. | `9` |
+| [`infinadd`](./infinadd/) | **InfinAdd — Arbitrary-Precision BigInt Arithmetic Engine</strong><br>Arbitrary-precision arithmetic utility performing addition and subtraction on arbitrarily long numerical strings beyond hardware register bounds. | `39` |
+| [`lemin`](./lemin/) | **Lem-In — Network Flow Pathfinding & Graph Optimization</strong><br>Graph optimization engine solving maximum network flow problems for ant colony routing through a network of connected rooms and tunnels. | `3` |
+| [`n4s-autonomous`](./n4s-autonomous/) | **Need4Stek — Autonomous Vehicle Lidar Controller</strong><br>Autonomous vehicle control algorithm driving a simulated car through complex tracks by analyzing real-time 32-beam lidar distance streams and computing adaptive PID steering and speed commands. | `1` |
+| [`neural-network`](./neural-network/) | **Neural Network — Multi-Layer Perceptron & Gradient Descent from Scratch</strong><br>This project implements a multi-layer feedforward perceptron designed for classification and regression tasks. It implements matrix mathematical operations, activation functions, and reverse-mode automatic differentiation (backpropagation) to optimize network weights via stochastic gradient descent. | `14` |
+| [`pushswap`](./pushswap/) | **Pushswap — Constrained Double-Stack Sorting Optimization</strong><br>Highly constrained algorithmic sorting challenge sorting a list of integers across two stacks (l_a and l_b) using a restricted instruction set (sa, sb, pa, pb, ra, rb, rra, rrb). | `97` |
+| [`sokoban`](./sokoban/) | **Sokoban — Terminal Warehouse Puzzle Engine</strong><br>Terminal warehouse box-pushing puzzle engine featuring map validation, real-time keyboard interaction, collision detection, and win/loss condition tracking. | `97` |
+| [`trade`](./trade/) | **Trade — Real-Time Algorithmic Trading Bot & Market Signal Analysis</strong><br>Trade interacts with simulated or live market exchange APIs, processing tick and candlestick data in real time. It computes technical indicators across rolling windows to detect momentum shifts, trend reversals, and breakout opportunities, automatically issuing market and limit orders. | `51` |

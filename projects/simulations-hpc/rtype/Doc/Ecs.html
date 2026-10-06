@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECS Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background: #444;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        nav ul li a:hover {
+            background: #555;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Entity Component System (ECS) Documentation</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="client.html">Client</a></li>
+            <li><a href="server.html">Server</a></li>
+            <li><a href="ecs.html">ECS</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>What is ECS?</h2>
+        <p>An <strong>Entity Component System</strong> (ECS) is a design pattern commonly used in game development for organizing complex systems. It separates game logic into three main parts:</p>
+        <ul>
+            <li><strong>Entities:</strong> Unique IDs representing game objects.</li>
+            <li><strong>Components:</strong> Data associated with entities (e.g., position, velocity).</li>
+            <li><strong>Systems:</strong> Logic that operates on entities with specific components.</li>
+        </ul>
+
+        <h2>How ECS Works</h2>
+        <p>The ECS pattern decouples game objects from behavior, making your code modular and easier to maintain.</p>
+
+        <h3>1. Entities</h3>
+        <p>Entities are simple IDs or objects that represent game objects (e.g., a player, enemy, projectile). They do not contain data or behavior directly.</p>
+        <pre>
+// Example Entity in C++
+int playerEntity = createEntity();
+        </pre>
+
+        <h3>2. Components</h3>
+        <p>Components hold the data for entities. For example:</p>
+        <ul>
+            <li>Position (x, y)</li>
+            <li>Velocity (speed, direction)</li>
+            <li>Sprite (graphic to render)</li>
+            <li>Health (current and maximum health)</li>
+            <li>State (e.g., alive, dead, invincible)</li>
+        </ul>
+        <pre>
+// Example Component: Position
+struct Position {
+    float x, y;
+};
+        </pre>
+
+        <h3>3. Systems</h3>
+        <p>Systems operate on entities that have specific components. For example:</p>
+        <ul>
+            <li><strong>Movement System</strong> updates positions based on velocity.</li>
+            <li><strong>Render System</strong> draws sprites based on position.</li>
+            <li><strong>Collision System</strong> handles collisions between entities.</li>
+            <li><strong>State Control System</strong> manages entity states (e.g., alive, dead).</li>
+        </ul>
+        <pre>
+// Example System: Movement
+void MovementSystem(std::vector<Entity> entities, std::map<Entity, Velocity> velocities, std::map<Entity, Position>& positions) {
+    for (auto& entity : entities) {
+        positions[entity].x += velocities[entity].x;
+        positions[entity].y += velocities[entity].y;
+    }
+}
+        </pre>
+
+        <h2>Why Use ECS?</h2>
+        <ul>
+            <li><strong>Separation of Concerns:</strong> Data and logic are cleanly separated.</li>
+            <li><strong>Performance:</strong> Systems iterate efficiently over components.</li>
+            <li><strong>Modularity:</strong> Adding new systems or components is easy.</li>
+        </ul>
+
+        <h2>Putting It Together</h2>
+        <p>Here is how you might use ECS in a game loop:</p>
+        <pre>
+int main() {
+    // Create Entities
+    int player = createEntity();
+    Position playerPos = {100, 200};
+    Velocity playerVel = {5, 0};
+
+    // Add Components
+    addComponent(player, playerPos);
+    addComponent(player, playerVel);
+
+    // Run Systems
+    while (gameRunning) {
+        MovementSystem(entities, velocities, positions);
+        RenderSystem(entities, positions, sprites);
+    }
+
+    return 0;
+}
+        </pre>
+
+        <h2>Code Structure</h2>
+        <p>The ECS code is organized into several key files and directories:</p>
+        <ul>
+            <li><strong>Components:</strong> Defines data structures for entities.
+                <ul>
+                    <li><code>Component.cpp</code> / <code>Component.hpp</code>: Base class for components.</li>
+                    <li><code>Position.cpp</code> / <code>Position.hpp</code>: Manages position data.</li>
+                    <li><code>Velocity.cpp</code> / <code>Velocity.hpp</code>: Handles velocity data.</li>
+                    <li><code>Health.cpp</code> / <code>Health.hpp</code>: Manages health data.</li>
+                    <li><code>State.cpp</code> / <code>State.hpp</code>: Manages state data.</li>
+                    <li><code>Enemy.cpp</code> / <code>Enemy.hpp</code>: Represents enemy entities.</li>
+                    <li><code>Boss.cpp</code> / <code>Boss.hpp</code>: Represents boss entities.</li>
+                </ul>
+            </li>
+            <li><strong>Entities:</strong> Base class for all entities.
+                <ul>
+                    <li><code>Entity.cpp</code> / <code>Entity.hpp</code></li>
+                </ul>
+            </li>
+            <li><strong>Systems:</strong> Defines behaviors and processes.
+                <ul>
+                    <li><code>Gravity.cpp</code> / <code>Gravity.hpp</code>: Implements gravity logic.</li>
+                    <li><code>Motion.cpp</code> / <code>Motion.hpp</code>: Handles motion updates.</li>
+                    <li><code>Collision.cpp</code> / <code>Collision.hpp</code>: Manages collision detection and response.</li>
+                    <li><code>StateControl.cpp</code> / <code>StateControl.hpp</code>: Manages entity states.</li>
+                    <li><code>System.cpp</code> / <code>System.hpp</code>: Base class for systems.</li>
+                </ul>
+            </li>
+            <li><strong>Core Files:</strong> Core ECS management.
+                <ul>
+                    <li><code>ECS.cpp</code> / <code>ECS.hpp</code></li>
+                    <li><code>Sparse.cpp</code> / <code>Sparse.hpp</code>: Sparse array implementation for efficient data storage.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>Example Code Snippets</h2>
+        <h3>Initializing the ECS</h3>
+        <pre>
+#include "ECS.hpp"
+#include "Components/Position.hpp"
+#include "Components/Velocity.hpp"
+#include "Systems/Motion.hpp"
+
+int main() {
+    Track track;
+    ECS ecs(track);
+
+    ecs.addComponent(std::make_shared<Position>());
+    ecs.addComponent(std::make_shared<Velocity>());
+
+    ecs.addSystem(std::make_shared<Motion>());
+    ecs.getElement<Motion>(0)->addComponent(ecs.getElement<Position>(0));
+    ecs.getElement<Motion>(0)->addComponent(ecs.getElement<Velocity>(0));
+
+    return 0;
+}
+        </pre>
+
+        <h3>Updating the ECS</h3>
+        <pre>
+void ECS::update() {
+    std::lock_guard<std::mutex> lock(_mutex);
+    for (auto &system : _systems) {
+        if (system.second != nullptr) {
+            system.second->setRefTime(_lastMsgTime);
+            system.second->setDeltaTime(_dt);
+            system.second->update();
+        }
+    }
+    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    _dt = std::chrono::duration_cast<std::chrono::duration<float>>(now - _lastUpdate).count();
+    _lastUpdate = now;
+}
+        </pre>
+
+        <h3>Handling User Input</h3>
+        <pre>
+void Menu::handleEvents(UdpClient &client) {
+    sf::Event event;
+
+    while (_window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            _window.close();
+
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Space) {
+                Protocol<uint8_t> protocol;
+                std::vector<field_t> fields;
+                std::cout << "Space key pressed" << std::endl;
+
+                protocol.resizeBuffer(8);
+                fields.push_back({9, 8});
+                fields.push_back({(uint16_t)_ecs.getClientId(), 16});
+                protocol.setBuffer(protocol.createPacket(fields));
+                protocol.runRequest(_ecs);
+                fields = {};
+                for (auto &b : protocol.getBuffer())
+                    fields.push_back({b, 8});
+                client.addRequest(fields);
+            }
+
+            if (event.key.code == sf::Keyboard::Escape)
+                _window.close();
+        }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            auto mousePos = sf::Mouse::getPosition(_window);
+
+            if (gameButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _game.run(_window, client);
+            if (settingsButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _setting.run(_window);
+            if (StoryButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _story.run(_window);
+        }
+    }
+}
+        </pre>
+
+        <h3>Rendering the Game</h3>
+        <pre>
+void Game::render(sf::RenderWindow& window) {
+    window.clear();
+    window.draw(backgroundSprite);
+    window.draw(gameText);
+    window.draw(backButton);
+    window.display();
+}
+        </pre>
+
+        <h2>Conclusion</h2>
+        <p>ECS is a powerful architecture for game development. By separating data and logic, it enables modularity, performance, and flexibility in game design.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ECS Documentation</p>
+    </footer>
+</body>
+</html>

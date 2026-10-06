@@ -1,0 +1,55 @@
+name: Corewar tester
+on:
+  push:
+    branches-ignore:
+      - ga-ignore-*
+  pull_request:
+    branches-ignore:
+      - ga-ignore-*
+env:
+  EXECUTABLES: "asm/asm,corewar/corewar"
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run check.sh and generate report
+        run: check.sh $(pwd) $(pwd) > coding-style-reports.log
+      - name: Parse and annotate errors
+        run: |
+          value=0
+          while read -r line; do
+            file=$(echo "$line" | cut -d ":" -f 1)
+            line_number=$(echo "$line" | cut -d ":" -f 2)
+            error_type=$(echo "$line" | cut -d ":" -f 3)
+            error_code=$(echo "$line" | cut -d ":" -f 4)
+            echo "::error file=$file,line=$line_number,title=$error_type "coding style error"::$error_code"
+            value=$((value+1))
+          done < coding-style-reports.log
+          if [ $value -gt 0 ]; then
+            exit 84;
+          fi
+
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compile programs
+        run: make
+        timeout-minutes: 2
+      - name: clean
+        run: | 
+          make clean
+      - name: Check executables
+        run: |
+          for exec in ${EXECUTABLES//,/ }; do
+            if [ ! -x "$exec"]; then
+              echo "Executable $exe not found"
+              exit 84
+            fi
+          done

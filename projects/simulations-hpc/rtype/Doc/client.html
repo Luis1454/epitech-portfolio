@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            background: #444;
+        }
+        nav ul li {
+            margin: 0;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+        }
+        nav ul li a:hover {
+            background: #555;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #333;
+            color: #fff;
+            margin-top: 2rem;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .image-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Client Documentation</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="client.html">Client</a></li>
+            <li><a href="server.html">Server</a></li>
+            <li><a href="Ecs.html">ECS</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="image-container">
+            <h3>Client Interface Example</h3>
+            <img src="assets/Rtype.jpeg" alt="Illustration of the client interface">
+        </div>
+        <h2>How to Run the Client</h2>
+        <p>To start the client application, use the following command:</p>
+        <pre>
+./r-type_client (name of client)
+        </pre>
+
+        <h2>Client Documentation</h2>
+        
+        <h3>Overview</h3>
+        <p>The R-Type client is a networked game client that connects to the R-Type server for multiplayer gameplay. It handles user input, renders the game graphics, and communicates with the server to synchronize game state.</p>
+
+        <h3>Key Features</h3>
+        <ul>
+            <li>UDP-based network communication</li>
+            <li>Real-time gameplay rendering</li>
+            <li>User input handling</li>
+            <li>Game state synchronization with server</li>
+        </ul>
+
+        <h3>Network Protocol</h3>
+        <p>The client uses UDP for communication with the server. Two main types of packets are exchanged:</p>
+        <h4>1. Position Data (Type 0x01)</h4>
+        <pre>
+[0]     : Type (0x01)
+[1-2]   : ID (2 bytes)
+[3-4]   : Position X (12 bits)
+[4-5]   : Position Y (12 bits)
+[6]     : Direction
+[7]     : Speed
+        </pre>
+        <h4>2. Player Pseudo (Type 0x02)</h4>
+        <pre>
+[0]     : Type (0x02)
+[1-2]   : ID (2 bytes)
+[3-17]  : Pseudo (up to 15 characters)
+        </pre>
+
+        <h3>Main Components</h3>
+        <h4>Network Manager</h4>
+        <p>Handles all network communications, including sending player actions and receiving game state updates.</p>
+
+        <h4>Input Handler</h4>
+        <p>Captures and processes user inputs (keyboard/mouse) for game control.</p>
+
+        <h4>Renderer</h4>
+        <p>Responsible for drawing the game graphics, including player ships, enemies, and game environment.</p>
+
+        <h4>Game Logic</h4>
+        <p>Manages local game state and integrates server updates.</p>
+
+        <h3>Configuration</h3>
+        <p>The client can be configured using a configuration file or command-line arguments. Key configurable parameters include:</p>
+        <ul>
+            <li>Server IP address and port</li>
+            <li>Player name</li>
+            <li>Graphics settings (resolution, fullscreen mode)</li>
+            <li>Audio settings</li>
+        </ul>
+
+        <h3>Troubleshooting</h3>
+        <p>If you encounter issues with the client:</p>
+        <ol>
+            <li>Ensure the server is running and accessible.</li>
+            <li>Check your network connection.</li>
+            <li>Verify that the client configuration matches the server settings.</li>
+            <li>Look for error messages in the console output.</li>
+        </ol>
+
+        <h3>Development</h3>
+        <p>For developers looking to extend or modify the client:</p>
+        <ul>
+            <li>The client is written in C++ and uses SFML for graphics and input handling.</li>
+            <li>Network communication is handled using raw UDP sockets.</li>
+            <li>The project follows object-oriented design principles for modularity and extensibility.</li>
+        </ul>
+
+        <h3>Code Structure</h3>
+        <p>The client code is organized into several key files and directories:</p>
+        <ul>
+            <li><strong>Components:</strong> Contains various components like `LifeBar` and `Sprite`.</li>
+            <li><strong>Menu:</strong> Manages the main menu and its interactions.</li>
+            <li><strong>Game:</strong> Handles the main game loop and game logic.</li>
+            <li><strong>UdpClient:</strong> Manages UDP communication with the server.</li>
+            <li><strong>Assets:</strong> Contains media resources such as images and fonts.</li>
+        </ul>
+
+        <h3>Example Code Snippets</h3>
+        <h4>Initializing the Client</h4>
+        <pre>
+#include "game.hpp"
+#include <stdexcept>
+#include <iostream>
+#include "../Protocol/Protocol.hpp"
+#include "Utils/HealthBar.hpp"
+
+Game::Game(sf::RenderWindow &window, ECS &ecs) : backgroundOffset(0.0f), ecs(ecs)
+{
+    if (!font.loadFromFile("src/client/assets/nasa.otf"))
+        throw std::runtime_error("Failed to load font");
+
+    if (!backgroundTexture.loadFromFile("src/client/assets/bcg.png"))
+        throw std::runtime_error("Failed to load background image");
+    backgroundSprite.setTexture(backgroundTexture);
+
+    gameText.setFont(font);
+    gameText.setString("Game Page");
+    gameText.setCharacterSize(30);
+    gameText.setFillColor(sf::Color::White);
+    gameText.setPosition(100, 50);
+
+    backButton.setFont(font);
+    backButton.setString("Back");
+    backButton.setCharacterSize(30);
+    backButton.setFillColor(sf::Color::White);
+    backButton.setPosition(50, 500);
+}
+        </pre>
+
+        <h4>Handling User Input</h4>
+        <pre>
+void Menu::handleEvents(UdpClient &client) {
+    sf::Event event;
+
+    while (_window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            _window.close();
+
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Space) {
+                Protocol<uint8_t> protocol;
+                std::vector<field_t> fields;
+                std::cout << "Escape key pressed" << std::endl;
+
+                protocol.resizeBuffer(8);
+                fields.push_back({9, 8});
+                fields.push_back({(uint16_t)_ecs.getClientId(), 16});
+                protocol.setBuffer(protocol.createPacket(fields));
+                protocol.runRequest(_ecs);
+                fields = {};
+                for (auto &b : protocol.getBuffer())
+                    fields.push_back({b, 8});
+                client.addRequest(fields);
+            }
+
+            if (event.key.code == sf::Keyboard::Escape)
+                _window.close();
+        }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            auto mousePos = sf::Mouse::getPosition(_window);
+
+            if (gameButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _game.run(_window, client);
+            if (settingsButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _setting.run(_window);
+            if (StoryButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+                _story.run(_window);
+        }
+    }
+}
+        </pre>
+
+        <h4>Rendering the Game</h4>
+        <pre>
+void Game::render(sf::RenderWindow& window) {
+    window.clear();
+    window.draw(backgroundSprite);
+    window.draw(gameText);
+    window.draw(backButton);
+    window.display();
+}
+        </pre>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Project Documentation</p>
+    </footer>
+</body>
+</html>

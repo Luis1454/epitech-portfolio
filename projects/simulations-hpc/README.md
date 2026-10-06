@@ -1,14 +1,17 @@
-# Simulations, Computational Physics & Graphics
+# Simulations, Graphics, Physics Engines & High-Performance Computing
 
-Numerical simulation, physical modeling, 2D graphics rendering, and hardware-accelerated computation.
+This directory contains **11 implementations** in the `simulations-hpc` engineering domain.
 
-## Projects
-
-| Project | Description | Core Stack |
-| --- | --- | --- |
-| [TekSpice](tekspice/) | Discrete electronic component and digital logic simulator evaluating cyclic nets in C++20. | C++20, Netlists, Logic Gates |
-| [Relativistic Raytracer](relativistic-raytracer/) | Curved-spacetime optical raytracer solving null geodesics in Schwarzschild & Kerr metrics. | C++20, Runge-Kutta RK4 |
-| [myRadar](myradar/) | Air traffic control simulation with Quadtree spatial partitioning and collision avoidance. | C, CSFML, Quadtree |
-| [myPaint](mypaint/) | Raster graphics drawing suite featuring layer management, customizable brushes, and palettes. | C, CSFML |
-| [myHunter](myhunter/) | 2D interactive arcade game with sprite animation, audio streaming, and high score tracking. | C, CSFML |
-| [Screensaver](screensaver/) | Real-time procedural animation engine rendering trigonometric vector fields and particle flows. | C, CSFML |
+| Project | Title / Description | Files |
+| :--- | :--- | :---: |
+| [`arcade`](./arcade/) | **Arcade — Modular Gaming Platform & Dynamic Graphic Libraries</strong><br>Arcade solves the problem of cross-toolkit graphics abstraction by operating entirely through dynamic shared libraries loaded at runtime (`dlopen(3)`, `dlsym(3)`). The core engine manages event dispatching and entity states, allowing users to switch graphic libraries (e.g. from SFML to SDL2 or an NCurses terminal interface) and game cartridges (Snake, Nibbler, Pacman) on the fly without restarting or recompiling. | `34` |
+| [`myhunter`](./myhunter/) | **myHunter — 2D Arcade Game Engine & Sprite Animation</strong><br>2D Arcade shooter featuring hardware-accelerated sprite animation, event-driven user interaction, frame rate regulation, and high-score tracking. | `104` |
+| [`mypaint`](./mypaint/) | **myPaint — 2D Raster Graphics & Canvas Editor</strong><br>GUI drawing application featuring modular tool palettes, layer manipulation, custom brush dynamics, and color selection. | `123` |
+| [`myradar`](./myradar/) | **myRadar — Real-Time Air Traffic Radar & Collision Simulation</strong><br>2D Air traffic control simulation visualizing flight trajectories, control tower radii, and real-time aircraft collision detection using spatial Quadtree partitioning. | `128` |
+| [`myrpg`](./myrpg/) | **myRPG — 2D Role-Playing Game Engine & Real-Time Event Loop</strong><br>myRPG is an interactive role-playing game developed from first principles in C. The architecture isolates the rendering loop, input handling, entity management, and user interface layers, delivering smooth 60 FPS performance with custom particle emitters and modular dialogue systems. | `135` |
+| [`myworld`](./myworld/) | **myWorld — 3D Isometric Terrain Modeling & Heightmap Engine</strong><br>myWorld allows users to generate, visualize, and sculpt three-dimensional terrain maps in real time. It calculates mathematical projections to transform 3D grid vertices into a 2D isometric viewport, providing intuitive elevation controls and texture mapping. | `55` |
+| [`relativistic-raytracer`](./relativistic-raytracer/) | **Relativistic Raytracer — Curved Spacetime Geodesic Engine</strong><br>Optical raytracing simulation modeling photon trajectories along null geodesics in curved spacetime metrics (Schwarzschild and Kerr black holes) using numerical differential integrators. | `1` |
+| [`rtype`](./rtype/) | **R-Type — Cross-Platform Multiplayer Networked Game Engine (ECS)</strong><br>R-Type replicates the classic side-scrolling arcade shooter as a distributed, networked multiplayer platform. The engine is architected around an in-house Entity-Component-System (ECS) model to ensure deterministic game state updates, high cache locality, and scalable concurrency across client and server runtimes. | `142` |
+| [`screensaver`](./screensaver/) | **MyScreensaver — Real-Time Procedural Graphics Animation</strong><br>Modular real-time screensaver rendering procedural visual animations, trigonometric waves, and particle physics in CSFML. | `11` |
+| [`tekspice`](./tekspice/) | **TekSpice — Discrete Electronic & Digital Logic Circuit Simulator</strong><br>Object-oriented discrete electronic component and digital logic circuit simulation engine in C++20. Parses Netlist component topologies and evaluates cyclic graph state propagation across discrete clock cycles. | `57` |
+| [`tetris`](./tetris/) | **Tetris — Terminal Grid Engine & NCurses Event Loop</strong><br>This implementation features a robust terminal UI engine running in raw terminal mode, completely detached from line buffering. It dynamically loads external tetromino shape definition files, validates geometries, and drives standard game mechanics (rotation, line clears, score scaling, speed ramping). | `54` |
