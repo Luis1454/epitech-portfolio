@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-06",
-  "projects_count": 51,
+  "projects_count": 50,
   "projects": [
     {
       "name": "antman-compression",
@@ -40,7 +40,7 @@
       "domain": "algorithms-ai",
       "path": "projects/algorithms-ai/dante-star",
       "summary": "High-throughput maze generator creating perfect and imperfect 2D labyrinths paired with optimized A* and Dijkstra pathfinding solvers.",
-      "files": 1
+      "files": 24
     },
     {
       "name": "evalexpr",
@@ -80,7 +80,7 @@
       "domain": "algorithms-ai",
       "path": "projects/algorithms-ai/lemin",
       "summary": "Graph optimization engine solving maximum network flow problems for ant colony routing through a network of connected rooms and tunnels.",
-      "files": 3
+      "files": 63
     },
     {
       "name": "n4s-autonomous",
@@ -88,7 +88,7 @@
       "domain": "algorithms-ai",
       "path": "projects/algorithms-ai/n4s-autonomous",
       "summary": "Autonomous vehicle control algorithm driving a simulated car through complex tracks by analyzing real-time 32-beam lidar distance streams and computing adaptive PID steering and speed commands.",
-      "files": 1
+      "files": 44
     },
     {
       "name": "neural-network",
@@ -145,14 +145,6 @@
       "path": "projects/foundations/cpp-pool",
       "summary": "Modern C++ progression covering RAII resource management, object-oriented encapsulation, polymorphism, operator overloading, and template metaprogramming.",
       "files": 172
-    },
-    {
-      "name": "myftp",
-      "title": "myFTP — RFC 959 BSD Socket FTP Server",
-      "domain": "network-devops",
-      "path": "projects/network-devops/myftp",
-      "summary": "RFC 959-compliant File Transfer Protocol (FTP) server supporting concurrent multi-client connections over TCP/IP sockets with passive and active data transmission modes.",
-      "files": 1
     },
     {
       "name": "panoramix",
@@ -288,7 +280,7 @@
       "domain": "simulations-hpc",
       "path": "projects/simulations-hpc/relativistic-raytracer",
       "summary": "Optical raytracing simulation modeling photon trajectories along null geodesics in curved spacetime metrics (Schwarzschild and Kerr black holes) using numerical differential integrators.",
-      "files": 1
+      "files": 87
     },
     {
       "name": "rtype",
@@ -328,7 +320,7 @@
       "domain": "systems-kernel",
       "path": "projects/systems-kernel/42sh",
       "summary": "Complete Unix command language interpreter engineered in C. Features Abstract Syntax Tree (AST) lexical parsing, multi-process pipeline orchestration, signal handling, and interactive terminal job control.",
-      "files": 1
+      "files": 109
     },
     {
       "name": "asm-minilibc",
@@ -352,7 +344,7 @@
       "domain": "systems-kernel",
       "path": "projects/systems-kernel/ftrace",
       "summary": "Process execution tracer capturing user-space function calls, shared library jumps, and system call boundaries using runtime software breakpoints and symbol resolution.",
-      "files": 1
+      "files": 26
     },
     {
       "name": "minishell1",

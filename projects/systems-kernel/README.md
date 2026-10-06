@@ -4,10 +4,10 @@ This directory contains **11 implementations** in the `systems-kernel` engineeri
 
 | Project | Title / Description | Files |
 | :--- | :--- | :---: |
-| [`42sh`](./42sh/) | **42sh — POSIX-Compliant Unix Shell Architecture</strong><br>Complete Unix command language interpreter engineered in C. Features Abstract Syntax Tree (AST) lexical parsing, multi-process pipeline orchestration, signal handling, and interactive terminal job control. | `1` |
+| [`42sh`](./42sh/) | **42sh — POSIX-Compliant Unix Shell Architecture</strong><br>Complete Unix command language interpreter engineered in C. Features Abstract Syntax Tree (AST) lexical parsing, multi-process pipeline orchestration, signal handling, and interactive terminal job control. | `109` |
 | [`asm-minilibc`](./asm-minilibc/) | **ASM MiniLibC — Pure x86-64 Low-Level Assembly Primitives</strong><br>Clean-room implementation of standard C library memory and string primitives written entirely in pure x86-64 assembly, strictly adhering to the System V AMD64 ABI specification. | `14` |
 | [`corewar`](./corewar/) | **Corewar — Virtual Machine, Bytecode Assembler & Memory Arena</strong><br>Corewar is composed of two primary subsystems: | `140` |
-| [`ftrace`](./ftrace/) | **ftrace — Dynamic Function Call & Call Graph Tracer</strong><br>Process execution tracer capturing user-space function calls, shared library jumps, and system call boundaries using runtime software breakpoints and symbol resolution. | `1` |
+| [`ftrace`](./ftrace/) | **ftrace — Dynamic Function Call & Call Graph Tracer</strong><br>Process execution tracer capturing user-space function calls, shared library jumps, and system call boundaries using runtime software breakpoints and symbol resolution. | `26` |
 | [`minishell1`](./minishell1/) | **Minishell 1 — Unix Process Lifecycle & Command Interpreter</strong><br>Fundamental Unix shell engine handling user input tokenization, child process execution lifecycle, PATH resolution, and built-in commands. | `97` |
 | [`minishell2`](./minishell2/) | **Minishell 2 — Multi-Stage Unix Process & Pipe Orchestrator</strong><br>Advanced Unix command interpreter supporting inter-process communication pipelines, file descriptor redirection, and persistent environment variable management. | `100` |
 | [`my-ls`](./my-ls/) | **my_ls — POSIX Directory Stream & File Metadata Lister</strong><br>High-performance directory listing utility reproducing GNU `ls` behavior. Queries filesystem metadata, formats permissions, file owners, modification timestamps, and directory hierarchies. | `103` |

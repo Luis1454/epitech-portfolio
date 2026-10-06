@@ -1,0 +1,14 @@
+*.txt
+.vscode
+*.o
+*.out
+*.a
+*.sh
+*.log
+vgcore.*
+*.ppm
+
+raytracer
+conf.cfg
+6.png
+4.png
