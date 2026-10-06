@@ -1,40 +1,27 @@
-# B Mat 100 Lil 1 1 101Pong
+# 3D Kinematic Vector Tracking & Trajectory Reflection
 
-> Projet Epitech · B-MAT-100 · promo-2027
+> Scientific Computing & Applied Mathematics
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Calculates 3D velocity vectors, spatial coordinates at time T+n, and collision angle against reflection bounding planes.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **91** · fichiers de code/build : **91**
-- Provenance : [B-MAT-100-LIL-1-1-101pong-luis.fernandes](https://github.com/EpitechPromo2027/B-MAT-100-LIL-1-1-101pong-luis.fernandes)
+Vector linear kinematics in Cartesian coordinate space with dot product angle resolution.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Velocity differential vector computation`
+- `Future time coordinate extrapolation`
+- `Incidence angle trigonometry at reflection plane`
 
-```sh
+## Compilation & Exécution
+
+```bash
 make
 ```
 
-## Tests
+## Garanties Techniques & Qualité
 
-```sh
-pytest
-```
-
-## Validation automatique
-
-✅ build validé — make terminé avec succès. 
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

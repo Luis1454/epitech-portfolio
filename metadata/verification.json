@@ -7,7 +7,7 @@
   },
   "projects": [
     {
-      "path": "projects/promo-2026/B-PSU-210/B-PSU-210-LIL-2-1-minishell2",
+      "path": "projects/systems-kernel/minishell2",
       "source_name": "B-PSU-210-LIL-2-1-minishell2-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -17,7 +17,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-CPE-200/B-CPE-200-LIL-2-1-lemin",
+      "path": "projects/algorithms-ai/lemin",
       "source_name": "B-CPE-200-LIL-2-1-lemin-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -27,7 +27,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MAT-200/B-MAT-200-LIL-2-1-109titration",
+      "path": "projects/scientific-computing/109titration",
       "source_name": "B-MAT-200-LIL-2-1-109titration-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -37,7 +37,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MAT-200/B-MAT-200-LIL-2-1-108trigo",
+      "path": "projects/scientific-computing/math-algorithms",
       "source_name": "B-MAT-200-LIL-2-1-108trigo-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -47,7 +47,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-PSU-200/B-PSU-200-LIL-2-1-mysokoban",
+      "path": "projects/algorithms-ai/sokoban",
       "source_name": "B-PSU-200-LIL-2-1-mysokoban-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -57,7 +57,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-PSU-100/B-PSU-100-LIL-1-1-myls",
+      "path": "projects/systems-kernel/my-ls",
       "source_name": "B-PSU-100-LIL-1-1-myls-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -67,7 +67,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-PSU-101/B-PSU-101-LIL-1-1-minishell1",
+      "path": "projects/systems-kernel/minishell1",
       "source_name": "B-PSU-101-LIL-1-1-minishell1-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -77,7 +77,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-CPE-110/B-CPE-110-LIL-1-1-BSQ",
+      "path": "projects/algorithms-ai/bsq",
       "source_name": "B-CPE-110-LIL-1-1-BSQ-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -87,7 +87,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MUL-100/B-MUL-100-LIL-1-1-myradar",
+      "path": "projects/simulations-hpc/myradar",
       "source_name": "B-MUL-100-LIL-1-1-myradar-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -97,7 +97,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MUL-100/B-MUL-100-LIL-1-1-myscreensaver",
+      "path": "projects/simulations-hpc/screensaver",
       "source_name": "B-MUL-100-LIL-1-1-myscreensaver-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -107,7 +107,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MAT-100/B-MAT-100-LIL-1-1-105torus",
+      "path": "projects/scientific-computing/math-algorithms",
       "source_name": "B-MAT-100-LIL-1-1-105torus-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -117,7 +117,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-CPE-210/B-CPE-210-LIL-2-1-solostumper02",
+      "path": "projects/algorithms-ai/evalexpr",
       "source_name": "B-CPE-210-LIL-2-1-solostumper02-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -127,7 +127,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-CPE-110/B-CPE-110-LIL-1-1-pushswap",
+      "path": "projects/algorithms-ai/pushswap",
       "source_name": "B-CPE-110-LIL-1-1-pushswap-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -137,7 +137,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-MAT-100/B-MAT-100-LIL-1-1-102architect",
+      "path": "projects/scientific-computing/math-algorithms",
       "source_name": "B-MAT-100-LIL-1-1-102architect-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -147,7 +147,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2026/B-CPE-101/B-CPE-101-LIL-1-1-infinadd",
+      "path": "projects/algorithms-ai/infinadd",
       "source_name": "B-CPE-101-LIL-1-1-infinadd-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -157,7 +157,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CCP-400/B-CCP-400-LIL-4-1-panoramix",
+      "path": "projects/network-devops/panoramix",
       "source_name": "B-CCP-400-LIL-4-1-panoramix-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -167,7 +167,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CNA-410/B-CNA-410-LIL-4-1-groundhog",
+      "path": "projects/scientific-computing/groundhog",
       "source_name": "B-CNA-410-LIL-4-1-groundhog-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -177,7 +177,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-400/B-PSU-400-LIL-4-1-strace",
+      "path": "projects/systems-kernel/strace",
       "source_name": "B-PSU-400-LIL-4-1-strace-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -187,7 +187,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-400/B-PSU-400-LIL-4-1-nmobjdump",
+      "path": "projects/systems-kernel/nm-objdump",
       "source_name": "B-PSU-400-LIL-4-1-nmobjdump-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -197,7 +197,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-OOP-400/B-OOP-400-LIL-4-1-tekspice",
+      "path": "projects/simulations-hpc/tekspice",
       "source_name": "B-OOP-400-LIL-4-1-tekspice-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -207,7 +207,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-ASM-400/B-ASM-400-LIL-4-1-asmminilibc",
+      "path": "projects/systems-kernel/asm-minilibc",
       "source_name": "B-ASM-400-LIL-4-1-asmminilibc-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -217,7 +217,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PDG-300/B-PDG-300-LIL-3-1-PDGD05",
+      "path": "projects/systems-kernel/cpp-paradigms-bootcamp",
       "source_name": "B-PDG-300-LIL-3-1-PDGD05-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -227,7 +227,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-projtester",
+      "path": "projects/scientific-computing/projtester",
       "source_name": "B-SYN-200-LIL-2-1-projtester-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -237,7 +237,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-FASTAtools",
+      "path": "projects/algorithms-ai/fastatools",
       "source_name": "B-SYN-200-LIL-2-1-FASTAtools-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -247,7 +247,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-palindrome",
+      "path": "projects/scientific-computing/palindrome",
       "source_name": "B-SYN-200-LIL-2-1-palindrome-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -257,7 +257,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-sbmlparser",
+      "path": "projects/scientific-computing/sbmlparser",
       "source_name": "B-SYN-200-LIL-2-1-sbmlparser-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -267,7 +267,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-200/B-PSU-200-LIL-2-1-minishell2",
+      "path": "projects/systems-kernel/minishell2",
       "source_name": "B-PSU-200-LIL-2-1-minishell2-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -277,7 +277,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-200/B-PSU-200-LIL-2-1-minishell1",
+      "path": "projects/systems-kernel/minishell1",
       "source_name": "B-PSU-200-LIL-2-1-minishell1-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -287,7 +287,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-MUL-200/B-MUL-200-LIL-2-1-mypaint",
+      "path": "projects/simulations-hpc/mypaint",
       "source_name": "B-MUL-200-LIL-2-1-mypaint-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -297,7 +297,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-antman",
+      "path": "projects/algorithms-ai/antman-compression",
       "source_name": "B-CPE-110-LIL-1-1-antman-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -307,7 +307,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-BSQ",
+      "path": "projects/algorithms-ai/bsq",
       "source_name": "B-CPE-110-LIL-1-1-BSQ-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -317,7 +317,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-navy",
+      "path": "projects/systems-kernel/navy",
       "source_name": "B-PSU-100-LIL-1-1-navy-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -327,7 +327,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-210/B-CPE-210-LIL-2-1-solostumper02",
+      "path": "projects/algorithms-ai/evalexpr",
       "source_name": "B-CPE-210-LIL-2-1-solostumper02-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -337,7 +337,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-210/B-CPE-210-LIL-2-1-solostumper01",
+      "path": "projects/algorithms-ai/evalexpr",
       "source_name": "B-CPE-210-LIL-2-1-solostumper01-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -347,7 +347,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-MUL-100/B-MUL-100-LIL-1-1-myradar",
+      "path": "projects/simulations-hpc/myradar",
       "source_name": "B-MUL-100-LIL-1-1-myradar-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -357,7 +357,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-myls",
+      "path": "projects/systems-kernel/my-ls",
       "source_name": "B-PSU-100-LIL-1-1-myls-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -367,7 +367,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-PSU-100/B-PSU-100-LIL-1-1-sokoban",
+      "path": "projects/algorithms-ai/sokoban",
       "source_name": "B-PSU-100-LIL-1-1-sokoban-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -377,7 +377,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-101/B-CPE-101-LIL-1-1-myprintf",
+      "path": "projects/systems-kernel/my-printf",
       "source_name": "B-CPE-101-LIL-1-1-myprintf-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -387,7 +387,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-110/B-CPE-110-LIL-1-1-pushswap",
+      "path": "projects/algorithms-ai/pushswap",
       "source_name": "B-CPE-110-LIL-1-1-pushswap-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -397,7 +397,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-MUL-100/B-MUL-100-LIL-1-1-myhunter",
+      "path": "projects/simulations-hpc/myhunter",
       "source_name": "B-MUL-100-LIL-1-1-myhunter-luis.fernandes",
       "command": "make",
       "status": "blocked",
@@ -407,7 +407,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-MAT-100/B-MAT-100-LIL-1-1-101pong",
+      "path": "projects/scientific-computing/math-algorithms",
       "source_name": "B-MAT-100-LIL-1-1-101pong-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -417,7 +417,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-101/B-CPE-101-LIL-1-1-finalstumper",
+      "path": "projects/algorithms-ai/evalexpr",
       "source_name": "B-CPE-101-LIL-1-1-finalstumper-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -427,7 +427,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/promo-2027/B-CPE-100/B-CPE-100-LIL-1-1-cpoolday13",
+      "path": "projects/systems-kernel/c-programming-bootcamp",
       "source_name": "B-CPE-100-LIL-1-1-cpoolday13-luis.fernandes",
       "command": "make",
       "status": "passed",

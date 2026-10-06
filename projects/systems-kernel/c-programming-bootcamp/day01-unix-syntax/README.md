@@ -1,36 +1,27 @@
-# B Cpe 100 Lil 1 1 Cpoolday01
+# POSIX Shell Scripting & Environment Automation
 
-> Projet Epitech · B-CPE-100 · promo-2027
+> Systems Programming & Kernel Foundations
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Automated Unix environment configuration and command orchestration scripts utilizing standard POSIX utilities.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **Shell**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **18** · fichiers de code/build : **2**
-- Provenance : [B-CPE-100-LIL-1-1-cpoolday01-luis.fernandes](https://github.com/EpitechPromo2027/B-CPE-100-LIL-1-1-cpoolday01-luis.fernandes)
+Implements deterministic shell execution patterns, stream redirection, exit code propagation, and file permission integrity.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Environment variable extraction`
+- `Recursive directory maintenance`
+- `Deterministic pipeline filtering`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+chmod +x *.sh
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-25 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

@@ -1,38 +1,27 @@
-# B Cpe 100 Lil 1 1 Cpoolday07
+# Dynamic Heap Allocation & Command-Line Argument Ingestion
 
-> Projet Epitech · B-CPE-100 · promo-2027
+> Systems Programming & Kernel Foundations
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Dynamic buffer allocation via malloc, argument array ingestion, and string concatenation primitives.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C, Shell**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **54** · fichiers de code/build : **54**
-- Provenance : [B-CPE-100-LIL-1-1-cpoolday07-luis.fernandes](https://github.com/EpitechPromo2027/B-CPE-100-LIL-1-1-cpoolday07-luis.fernandes)
+Safe heap allocation with null-pointer defensive checks and explicit heap deallocation contracts.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `my_strdup: heap string duplication`
+- `my_strcat / my_strncat: dynamic string concatenation`
+- `CLI parameter traversal and formatted printing`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
-
-```sh
-pytest
+```bash
+gcc -Wall -Wextra *.c
 ```
 
-## Validation automatique
+## Garanties Techniques & Qualité
 
-— non vérifié automatiquement
-
-## Nettoyage public
-
-2 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

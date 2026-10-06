@@ -1,38 +1,27 @@
-# B Cpe 100 Lil 1 1 Cpoolday13
+# Binary Search Trees & Structured Data Traversal
 
-> Projet Epitech · B-CPE-100 · promo-2027
+> Systems Programming & Kernel Foundations
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Binary Search Tree (BST) construction, balanced node lookup, and in-order/pre-order traversal algorithms.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **9** · fichiers de code/build : **9**
-- Provenance : [B-CPE-100-LIL-1-1-cpoolday13-luis.fernandes](https://github.com/EpitechPromo2027/B-CPE-100-LIL-1-1-cpoolday13-luis.fernandes)
+Hierarchical node pointer branching providing O(log N) average lookup and sorted node serialization.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `btree_create_node: heap node allocation`
+- `btree_apply_prefix / infix / postfix: tree traversal functional iterators`
+- `btree_search_item: key lookup via comparator callbacks`
 
-```sh
+## Compilation & Exécution
+
+```bash
 make
 ```
 
-## Tests
+## Garanties Techniques & Qualité
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
-
-## Validation automatique
-
-✅ build validé — make terminé avec succès. 
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

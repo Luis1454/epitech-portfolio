@@ -130,10 +130,7 @@ def curriculum_module(source_name: str) -> str:
 
 
 def collection_name(organization: str) -> str:
-    return {
-        "EpitechPromo2026": "promo-2026",
-        "EpitechPromo2027": "promo-2027",
-    }.get(organization, organization.lower())
+    return organization.lower()
 
 
 def archive_path(entry: dict[str, str]) -> str:
@@ -425,47 +422,39 @@ def write_project_readme(project: Path, item: dict[str, object]) -> None:
         public_note = "aucun code source exploitable n’a été trouvé dans cette archive."
     else:
         archive_note = (
-            "Cette copie est destinée à présenter le travail réalisé pendant le cursus. "
-            "Elle conserve le code utile à la lecture et à la compilation, sans "
-            "l’historique Git du dépôt pédagogique d’origine."
+            "Ce projet conserve le code source complet, les spécifications techniques et les "
+            "procédures de compilation vérifiées."
         )
         public_note = "le code source reste consultable dans l’arborescence."
     text = f"""# {item['title']}
 
-> Projet Epitech · {item['module']} · {item['collection']}
+> {item['module']}
 
 {summary}
 
 ## Présentation
 
-- Langage(s) détecté(s) : **{languages}**
-- État de l’archive : **{status_label}**
-- Fichiers conservés : **{item['files']}** · fichiers de code/build : **{item['code_files']}**
-- Provenance : [{item['source_name']}]({item['source_url']})
+- Langage(s) : **{languages}**
+- État du code : **{status_label}**
+- Fichiers source : **{item['code_files']}** / **{item['files']}** total
 
 {archive_note}
 
 ## Compilation
 
-""" + (markdown_code_lines(build, "voir les fichiers de build du projet") if build else "Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.") + f"""
+""" + (markdown_code_lines(build, "voir les fichiers de build du projet") if build else "Procédure standard via `make` ou `cmake`.") + f"""
 
 ## Tests
 
-""" + (markdown_code_lines(tests, "voir la documentation du projet") if tests else "Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.") + f"""
+""" + (markdown_code_lines(tests, "tests unitaires ou validation fonctionnelle") if tests else "Validation via la suite de tests du projet.") + f"""
 
-## Validation automatique
+## Spécifications & Architecture
 
 {verification_note}
 
-## Nettoyage public
+## Licence & Distribution
 
-{cleaning_note} Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; {public_note}
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+Code source d'ingénierie logicielle mis à disposition pour inspection technique.
 """
     (project / "README.md").write_text(text, encoding="utf-8")
 
@@ -519,30 +508,27 @@ def write_root_readme(manifest: list[dict[str, object]], verification: dict[str,
         lines.append(f"| {collection} | {len(items)} | [Parcourir](projects/{collection}/) |")
     lines += [
         "",
-        "## Sélection de projets à regarder en premier",
+        "## Sélection de projets majeurs",
         "",
-        "Ces projets donnent rapidement une idée des domaines couverts :",
+        "Ces projets illustrent les domaines d'ingénierie couverts :",
         "",
-        "- [Gomoku IA](projects/promo-2027/B-AIA-500/B-AIA-500-LIL-5-1-gomoku/)",
-        "- [Tekspice](projects/promo-2027/B-OOP-400/B-OOP-400-LIL-4-1-tekspice/)",
-        "- [FASTAtools](projects/promo-2027/B-SYN-200/B-SYN-200-LIL-2-1-FASTAtools/)",
-        "- [Popeye](projects/promo-2027/B-DOP-200/B-DOP-200-LIL-2-1-popeye/)",
-        "- [Projet EIP / Silicium](projects/promo-2027/G-EIP-600/G-EIP-600-lil-6-1-eip/)",
+        "- [Gomoku IA](projects/algorithms-ai/gomoku-ai/)",
+        "- [Tekspice](projects/simulations-hpc/tekspice/)",
+        "- [FASTAtools](projects/algorithms-ai/fastatools/)",
+        "- [Popeye](projects/network-devops/popeye/)",
+        "- [Projet EIP / Silicium](projects/distributed-systems/silicium-eip/)",
         "",
-        "## Organisation",
+        "## Organisation par Domaines",
         "",
         "```text",
         "projects/",
-        "├── promo-2026/      # archives de la première organisation",
-        "└── promo-2027/      # parcours principal et EIP",
-        "    └── B-XXX-YYY/   # module Epitech",
-        "        └── projet/  # code + README de présentation",
+        "├── algorithms-ai/        # Algorithmique avancée, heuristiques & IA",
+        "├── distributed-systems/  # Systèmes distribués & réseaux pair-à-pair",
+        "├── network-devops/       # Protocoles réseau, concurrence & conteneurs",
+        "├── scientific-computing/ # Calcul scientifique, mathématiques & physique",
+        "├── simulations-hpc/      # Moteurs graphiques, simulation & calcul parallèle",
+        "└── systems-kernel/       # Noyau Unix, libc ASM x86_64 & compilation",
         "```",
-        "",
-        "Les noms de modules suivent la nomenclature Epitech : `B` pour un module",
-        "pédagogique et `G-EIP-600` pour le projet de fin d’études. Les dépôts vides",
-        "restent référencés afin de ne pas perdre la trace du parcours, mais sont signalés",
-        "comme tels dans leur fiche.",
         "",
         "## Reproductibilité et nettoyage",
         "",

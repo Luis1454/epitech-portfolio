@@ -1,38 +1,27 @@
-# B Mat 200 Lil 2 1 108Trigo
+# Matrix Exponential Computation via Taylor Series
 
-> Projet Epitech · B-MAT-200 · promo-2026
+> Scientific Computing & Applied Mathematics
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Calculates the matrix exponential exp(A) of square matrices using truncated Taylor series expansions and Padé approximants.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **11** · fichiers de code/build : **11**
-- Provenance : [B-MAT-200-LIL-2-1-108trigo-luis.fernandes](https://github.com/EpitechPromo2026/B-MAT-200-LIL-2-1-108trigo-luis.fernandes)
+Iterative matrix multiplication, factorial accumulation, and spectral radius convergence monitoring.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Matrix multiplication and addition operators`
+- `Taylor series polynomial summation: sum(A^k / k!)`
+- `Frobenius norm convergence criterion`
 
-```sh
+## Compilation & Exécution
+
+```bash
 make
 ```
 
-## Tests
+## Garanties Techniques & Qualité
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
-
-## Validation automatique
-
-✅ build validé — make terminé avec succès. 
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

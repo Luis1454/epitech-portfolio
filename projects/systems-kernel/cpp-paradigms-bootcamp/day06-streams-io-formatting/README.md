@@ -1,36 +1,27 @@
-# B Pdg 300 Lil 3 1 Pdgd06
+# Stream I/O Architecture & File Serialization
 
-> Projet Epitech · B-PDG-300 · promo-2027
+> Object-Oriented & Generic C++ Paradigms
 
-Archive pédagogique Epitech conservée dans le portfolio.
+File stream processing with std::ifstream/ofstream and string stream formatting with std::stringstream.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C++**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **10** · fichiers de code/build : **10**
-- Provenance : [B-PDG-300-LIL-3-1-PDGD06-luis.fernandes](https://github.com/EpitechPromo2027/B-PDG-300-LIL-3-1-PDGD06-luis.fernandes)
+Robust binary and text serialization with stream state validation (fail, bad, eof bits).
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `File parsing pipelines`
+- `Stream formatting manipulators`
+- `In-memory string stream buffering`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

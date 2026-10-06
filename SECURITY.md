@@ -1,6 +1,6 @@
 # Publication et sécurité
 
-Ce dépôt est une archive pédagogique destinée à une présentation de candidature.
+Ce dépôt est une archive technique publique de projets d'ingénierie logicielle et systèmes.
 
 Avant toute nouvelle publication, vérifier que le changement ne contient pas :
 

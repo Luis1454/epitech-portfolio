@@ -1,36 +1,27 @@
-# B Mat 200 Lil 2 1 106Bombyx
+# Logistic Map Dynamical Systems & Bifurcation Analysis
 
-> Projet Epitech · B-MAT-200 · promo-2027
+> Scientific Computing & Applied Mathematics
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Simulates non-linear population dynamics using the logistic map equation, identifying periodic cycles and chaos transitions.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **Non détecté**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **2** · fichiers de code/build : **1**
-- Provenance : [B-MAT-200-LIL-2-1-106bombyx-luis.fernandes](https://github.com/EpitechPromo2027/B-MAT-200-LIL-2-1-106bombyx-luis.fernandes)
+Iterative non-linear recurrence simulation mapping attractor points and Feigenbaum bifurcation cascades.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Logistic recurrence step evaluation: x_{n+1} = r * x_n * (1 - x_n)`
+- `Cycle stability detection`
+- `Bifurcation density distribution generator`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

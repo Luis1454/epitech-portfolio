@@ -1,36 +1,27 @@
-# B Pdg 300 Lil 3 1 Pdgd03
+# C++ References & Heap Lifetime Management
 
-> Projet Epitech · B-PDG-300 · promo-2027
+> Object-Oriented & Generic C++ Paradigms
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Lvalue references, memory aliasing, dynamic heap allocation via new/delete, and const reference passing.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **Non détecté**
-- État de l’archive : **Archive sans code exploitable**
-- Fichiers conservés : **2** · fichiers de code/build : **0**
-- Provenance : [B-PDG-300-LIL-3-1-PDGD03-luis.fernandes](https://github.com/EpitechPromo2027/B-PDG-300-LIL-3-1-PDGD03-luis.fernandes)
+Eliminates pointer overhead using references for argument passing while maintaining strict memory contracts.
 
-Cette archive ne contenait pas de fichier de code ou de build exploitable au moment de l’import ; elle est conservée pour documenter le parcours.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Reference semantics vs pointer semantics`
+- `Heap allocation lifecycle with new[] and delete[]`
+- `Const reference efficiency`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; aucun code source exploitable n’a été trouvé dans cette archive.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

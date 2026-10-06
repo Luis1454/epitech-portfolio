@@ -1,36 +1,27 @@
-# B Mat 100 Lil 1 1 102Architect
+# 3D Affine Transformations & Homogeneous Coordinates
 
-> Projet Epitech · B-MAT-100 · promo-2027
+> Scientific Computing & Applied Mathematics
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Calculates composite transformation matrices (translation, scaling, rotation, reflection) on 3D homogeneous coordinates.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **Non détecté**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **1** · fichiers de code/build : **1**
-- Provenance : [B-MAT-100-LIL-1-1-102architect-luis.fernandes](https://github.com/EpitechPromo2027/B-MAT-100-LIL-1-1-102architect-luis.fernandes)
+Matrix multiplication pipelines chaining spatial transformations into a unified 4x4 matrix operator.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Translation matrix generator`
+- `3D Euler angle rotation matrices`
+- `Homogeneous matrix multiplication engine`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

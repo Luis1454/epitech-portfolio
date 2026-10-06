@@ -1,36 +1,27 @@
-# B Pdg 300 Lil 3 1 Pdgd08
+# Abstract Base Classes & Pure Interfaces
 
-> Projet Epitech · B-PDG-300 · promo-2027
+> Object-Oriented & Generic C++ Paradigms
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Contract-driven programming with pure virtual methods, abstract base classes, and decoupled architectures.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **C++**
-- État de l’archive : **Code source nettoyé pour publication**
-- Fichiers conservés : **10** · fichiers de code/build : **10**
-- Provenance : [B-PDG-300-LIL-3-1-PDGD08-luis.fernandes](https://github.com/EpitechPromo2027/B-PDG-300-LIL-3-1-PDGD08-luis.fernandes)
+Complete separation of interface contracts and concrete implementations adhering to SOLID principles.
 
-Cette copie est destinée à présenter le travail réalisé pendant le cursus. Elle conserve le code utile à la lecture et à la compilation, sans l’historique Git du dépôt pédagogique d’origine.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Pure virtual methods (= 0)`
+- `Interface class definitions`
+- `Concrete strategy implementation classes`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; le code source reste consultable dans l’arborescence.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.

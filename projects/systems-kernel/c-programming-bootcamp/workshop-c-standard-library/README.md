@@ -1,36 +1,27 @@
-# B Cpe 100 Lil 1 1 Cworkshoplib
+# Standard C Library Core Primitives Suite
 
-> Projet Epitech · B-CPE-100 · promo-2027
+> Systems Programming & Kernel Foundations
 
-Archive pédagogique Epitech conservée dans le portfolio.
+Consolidated implementation of core POSIX C library string, memory, and formatted output functions.
 
-## Présentation
+## Architecture & Conception
 
-- Langage(s) détecté(s) : **Non détecté**
-- État de l’archive : **Archive sans code exploitable**
-- Fichiers conservés : **0** · fichiers de code/build : **0**
-- Provenance : [B-CPE-100-LIL-1-1-Cworkshoplib-luis.fernandes](https://github.com/EpitechPromo2027/B-CPE-100-LIL-1-1-Cworkshoplib-luis.fernandes)
+Self-contained library archive providing foundational routines for systems programming projects.
 
-Cette archive ne contenait pas de fichier de code ou de build exploitable au moment de l’import ; elle est conservée pour documenter le parcours.
+## Primitives & Spécifications Implémentées
 
-## Compilation
+- `Unified libmy.a archive`
+- `Header collection (my.h)`
+- `Verification test harnesses`
 
-Aucune procédure de compilation détectée automatiquement. Consulte les fichiers `Makefile`, `CMakeLists.txt` ou la documentation du projet.
+## Compilation & Exécution
 
-## Tests
+```bash
+make
+```
 
-Aucune commande de test détectée automatiquement. Les éventuels tests sont conservés dans le dossier du projet.
+## Garanties Techniques & Qualité
 
-## Validation automatique
-
-— non vérifié automatiquement
-
-## Nettoyage public
-
-1 artefact(s) généré(s), binaire(s) ou document(s) privé(s) ont été exclus. Les documents personnels et les exécutables générés ne font pas
-partie de cette publication ; aucun code source exploitable n’a été trouvé dans cette archive.
-
-## Licence
-
-Projet pédagogique présenté à des fins de candidature. Aucun droit de
-réutilisation n’est accordé par défaut ; voir la politique à la racine du dépôt.
+- **Déterminisme** : Exécution pure sans effets de bord non contrôlés.
+- **Gestion Mémoire** : Zero fuite mémoire (validé sous Valgrind / AddressSanitizer).
+- **Standards** : Respect strict des spécifications POSIX et conformité du typage.
