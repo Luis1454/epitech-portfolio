@@ -6,7 +6,7 @@
 */
 
 #include <stdlib.h>
-#include "../../include/my.h"
+#include "my.h"
 
 void free_array(char **arr, int l1)
 {

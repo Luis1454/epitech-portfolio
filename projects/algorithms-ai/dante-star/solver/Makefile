@@ -25,7 +25,7 @@ all:	$(NAME)
 $(NAME):$(OBJ)
 		make all -C ../libpf/my/
 		make clean -C ../libpf/my/
-		gcc -o $(NAME) $(OBJ) $(FLAGS) -lncurses
+		gcc -o $(NAME) $(OBJ) $(FLAGS) 
 		rm *.o
 
 run:	all
@@ -42,6 +42,6 @@ re: fclean all
 valgrind :	$(OBJ)
 			$(MAKE) -C ../libpf/my/ all
 			$(MAKE) -C ../libpf/my/ clean
-			gcc -o $(NAME) $(SRC) $(FLAGS) $(FLAGSCSFML) -g -lncurses
+			gcc -o $(NAME) $(SRC) $(FLAGS) $(FLAGSCSFML) -g 
 			rm *.o
 
