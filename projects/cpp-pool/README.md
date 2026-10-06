@@ -1,4 +1,4 @@
-# Modern C++ & Software Engineering Paradigms Suite
+# C++ Pool — Piscine C++ Paradigms Suite
 
 An advanced, immersion-based software engineering curriculum in Modern C++ (C++17 / C++20). Covers object-oriented design patterns, RAII lifecycle guarantees, operator overloading, stream metaprogramming, runtime polymorphism, virtual table mechanics, template metaprogramming, and STL algorithms.
 

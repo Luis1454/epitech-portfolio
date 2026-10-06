@@ -315,11 +315,11 @@
       "files": 14
     },
     {
-      "name": "c-programming-bootcamp",
-      "title": "C Systems Programming Intensive & Foundations Suite",
+      "name": "c-pool",
+      "title": "C Pool — Piscine C Systems Programming Suite",
       "domain": "systems-kernel",
-      "path": "projects/systems-kernel/c-programming-bootcamp",
-      "summary": "This repository captures an intensive, immersion-based systems programming track designed to master the fundamentals of modern computing without standard library dependencies. It covers the complete progression from hardware data representation and pointer arithmetic to custom libc implementations, memory managers, and multi-file architecture orchestration.",
+      "path": "projects/c-pool",
+      "summary": "Piscine C intensive systems programming immersion track covering low-level memory allocation, pointer mechanics, custom standard libc routines, linked lists, POSIX file descriptor I/O, and recursive algorithms without standard library dependencies.",
       "files": 616
     },
     {
@@ -331,11 +331,11 @@
       "files": 140
     },
     {
-      "name": "cpp-paradigms-bootcamp",
-      "title": "Modern C++ & Software Engineering Paradigms Suite",
+      "name": "cpp-pool",
+      "title": "C++ Pool — Piscine C++ Paradigms Suite",
       "domain": "systems-kernel",
-      "path": "projects/systems-kernel/cpp-paradigms-bootcamp",
-      "summary": "This repository captures an intensive deep dive into C++ object-oriented paradigms and modern idioms, bridging low-level procedural systems with modern high-level abstraction. The modules systematically dismantle the abstraction cost of C++, exploring internal compiler memory layouts, virtual method dispatch overhead, compile-time template evaluation, and zero-overhead idioms.",
+      "path": "projects/cpp-pool",
+      "summary": "Piscine C++ intensive immersion track covering object-oriented paradigms, RAII lifecycle guarantees, operator overloading, stream I/O, runtime polymorphism, virtual method dispatch tables (vtables), template metaprogramming, and STL algorithms.",
       "files": 172
     },
     {

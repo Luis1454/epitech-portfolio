@@ -217,7 +217,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/systems-kernel/cpp-paradigms-bootcamp",
+      "path": "projects/cpp-pool",
       "source_name": "B-PDG-300-LIL-3-1-PDGD05-luis.fernandes",
       "command": "make",
       "status": "passed",
@@ -427,7 +427,7 @@
       "timed_out": false
     },
     {
-      "path": "projects/systems-kernel/c-programming-bootcamp",
+      "path": "projects/c-pool",
       "source_name": "B-CPE-100-LIL-1-1-cpoolday13-luis.fernandes",
       "command": "make",
       "status": "passed",

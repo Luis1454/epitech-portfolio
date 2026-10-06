@@ -1,4 +1,4 @@
-# C Systems Programming Intensive & Foundations Suite
+# C Pool — Piscine C Systems Programming Suite
 
 A comprehensive, ground-up systems programming curriculum and library implementation in C (System V AMD64 ABI, C99/C11). Spans raw pointer manipulation, memory allocation mechanics, string parsing primitives, recursive algorithms, linked data structures, file descriptor I/O multiplexing, and binary tree representations.
 
