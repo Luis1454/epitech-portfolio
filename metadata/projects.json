@@ -131,22 +131,6 @@
       "files": 538
     },
     {
-      "name": "c-pool",
-      "title": "C Systems Programming Foundations & Algorithms",
-      "domain": "foundations",
-      "path": "projects/foundations/c-pool",
-      "summary": "Comprehensive foundational implementation suite covering standard C library recreation, memory manipulation, string algorithms, linked structures, and binary utilities.",
-      "files": 616
-    },
-    {
-      "name": "cpp-pool",
-      "title": "Modern C++ Object-Oriented Systems & Templates",
-      "domain": "foundations",
-      "path": "projects/foundations/cpp-pool",
-      "summary": "Modern C++ progression covering RAII resource management, object-oriented encapsulation, polymorphism, operator overloading, and template metaprogramming.",
-      "files": 172
-    },
-    {
       "name": "panoramix",
       "title": "Panoramix — Concurrent Multithreading & Semaphore Synchronization",
       "domain": "network-devops",
@@ -196,10 +180,10 @@
     },
     {
       "name": "math-algorithms",
-      "title": "Numerical Mathematics & Scientific Algorithms",
+      "title": "Numerical Mathematics & Scientific Algorithms Suite",
       "domain": "scientific-computing",
       "path": "projects/scientific-computing/math-algorithms",
-      "summary": "Collection of applied numerical computing and scientific calculation utilities in Python and C.",
+      "summary": "This repository aggregates applied scientific computing algorithms implemented in Python and C. Each sub-module addresses a specific analytical problem spanning kinematics, projective geometry, matrix inversions, non-linear root finding, discrete chaotic dynamical systems, Laplace transfer functions, and higher-order Taylor expansions.",
       "files": 119
     },
     {
@@ -331,12 +315,28 @@
       "files": 14
     },
     {
+      "name": "c-programming-bootcamp",
+      "title": "C Systems Programming Intensive & Foundations Suite",
+      "domain": "systems-kernel",
+      "path": "projects/systems-kernel/c-programming-bootcamp",
+      "summary": "This repository captures an intensive, immersion-based systems programming track designed to master the fundamentals of modern computing without standard library dependencies. It covers the complete progression from hardware data representation and pointer arithmetic to custom libc implementations, memory managers, and multi-file architecture orchestration.",
+      "files": 616
+    },
+    {
       "name": "corewar",
       "title": "Corewar — Virtual Machine, Bytecode Assembler & Memory Arena",
       "domain": "systems-kernel",
       "path": "projects/systems-kernel/corewar",
       "summary": "Corewar is composed of two primary subsystems:",
       "files": 140
+    },
+    {
+      "name": "cpp-paradigms-bootcamp",
+      "title": "Modern C++ & Software Engineering Paradigms Suite",
+      "domain": "systems-kernel",
+      "path": "projects/systems-kernel/cpp-paradigms-bootcamp",
+      "summary": "This repository captures an intensive deep dive into C++ object-oriented paradigms and modern idioms, bridging low-level procedural systems with modern high-level abstraction. The modules systematically dismantle the abstraction cost of C++, exploring internal compiler memory layouts, virtual method dispatch overhead, compile-time template evaluation, and zero-overhead idioms.",
+      "files": 172
     },
     {
       "name": "ftrace",

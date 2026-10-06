@@ -1,12 +1,14 @@
-# Systems Programming, Kernel Mechanics & Unix Internals
+# Systems Programming, Kernel Mechanics & Low-Level Foundations
 
-This directory contains **11 implementations** in the `systems-kernel` engineering domain.
+This directory contains **13 implementations** in the `systems-kernel` engineering domain.
 
 | Project | Title / Description | Files |
 | :--- | :--- | :---: |
 | [`42sh`](./42sh/) | **42sh — POSIX-Compliant Unix Shell Architecture</strong><br>Complete Unix command language interpreter engineered in C. Features Abstract Syntax Tree (AST) lexical parsing, multi-process pipeline orchestration, signal handling, and interactive terminal job control. | `109` |
 | [`asm-minilibc`](./asm-minilibc/) | **ASM MiniLibC — Pure x86-64 Low-Level Assembly Primitives</strong><br>Clean-room implementation of standard C library memory and string primitives written entirely in pure x86-64 assembly, strictly adhering to the System V AMD64 ABI specification. | `14` |
+| [`c-programming-bootcamp`](./c-programming-bootcamp/) | **C Systems Programming Intensive & Foundations Suite</strong><br>This repository captures an intensive, immersion-based systems programming track designed to master the fundamentals of modern computing without standard library dependencies. It covers the complete progression from hardware data representation and pointer arithmetic to custom libc implementations, memory managers, and multi-file architecture orchestration. | `616` |
 | [`corewar`](./corewar/) | **Corewar — Virtual Machine, Bytecode Assembler & Memory Arena</strong><br>Corewar is composed of two primary subsystems: | `140` |
+| [`cpp-paradigms-bootcamp`](./cpp-paradigms-bootcamp/) | **Modern C++ & Software Engineering Paradigms Suite</strong><br>This repository captures an intensive deep dive into C++ object-oriented paradigms and modern idioms, bridging low-level procedural systems with modern high-level abstraction. The modules systematically dismantle the abstraction cost of C++, exploring internal compiler memory layouts, virtual method dispatch overhead, compile-time template evaluation, and zero-overhead idioms. | `172` |
 | [`ftrace`](./ftrace/) | **ftrace — Dynamic Function Call & Call Graph Tracer</strong><br>Process execution tracer capturing user-space function calls, shared library jumps, and system call boundaries using runtime software breakpoints and symbol resolution. | `26` |
 | [`minishell1`](./minishell1/) | **Minishell 1 — Unix Process Lifecycle & Command Interpreter</strong><br>Fundamental Unix shell engine handling user input tokenization, child process execution lifecycle, PATH resolution, and built-in commands. | `97` |
 | [`minishell2`](./minishell2/) | **Minishell 2 — Multi-Stage Unix Process & Pipe Orchestrator</strong><br>Advanced Unix command interpreter supporting inter-process communication pipelines, file descriptor redirection, and persistent environment variable management. | `100` |
