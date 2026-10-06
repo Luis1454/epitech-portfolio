@@ -259,11 +259,11 @@
       "files": 55
     },
     {
-      "name": "relativistic-raytracer",
-      "title": "Relativistic Raytracer — Curved Spacetime Geodesic Engine",
+      "name": "raytracer",
+      "title": "Raytracer — Multithreaded 3D Raytracing Engine",
       "domain": "simulations-hpc",
-      "path": "projects/simulations-hpc/relativistic-raytracer",
-      "summary": "Optical raytracing simulation modeling photon trajectories along null geodesics in curved spacetime metrics (Schwarzschild and Kerr black holes) using numerical differential integrators.",
+      "path": "projects/simulations-hpc/raytracer",
+      "summary": "High-performance 3D optical raytracer in C++20 featuring recursive reflection, Phong illumination, shadow projection, post-processing filters, and a multithreaded tile renderer.",
       "files": 87
     },
     {
